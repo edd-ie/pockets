@@ -6,7 +6,7 @@ export default function Mobile() {
 
     return (
         <div>
-            Simu
+            Simu yangu 
         </div>
     );
 }
