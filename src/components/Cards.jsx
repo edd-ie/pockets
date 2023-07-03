@@ -1,12 +1,27 @@
 import React from 'react';
 
-export default function Cards() {
-
-
-
-    return (
+const Cards = ({ transactions, balance, category, bank }) => {
+  return (
+    <div className="gCard">
+      <h2>Client Transactions</h2>
+      <ul>
+        {transactions.map((transaction, index) => (
+          <li key={index}>{transaction}</li>
+        ))}
+      </ul>
+      <div className="gCard-info">
         <div>
-            Cards
+          <strong>Balance:</strong> {balance}
         </div>
-    );
-}
+        <div>
+          <strong>Category:</strong> {category}
+        </div>
+        <div>
+          <strong>Bank:</strong> {bank}
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default Cards;
