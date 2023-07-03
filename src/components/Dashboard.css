@@ -1,0 +1,21 @@
+/* All styling  related to Dashboard */
+#eDashboard{
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    background: rgb(2, 2, 53);
+}
+
+#eSidebar{
+    background: white;
+}
+
+#eHeader{
+
+}
+
+#eContent{
+
+}
