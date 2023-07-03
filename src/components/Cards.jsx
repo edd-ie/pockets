@@ -1,4 +1,5 @@
 import React from 'react';
+import './Cards.css';
 
 const Cards = ({ transactions, balance, category, bank }) => {
   return (
