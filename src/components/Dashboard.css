@@ -5,7 +5,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background: rgb(2, 2, 53);
+    background: linear-gradient(#00217c, #1a52ec);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -71,5 +71,13 @@
     height: 98%;
     width: 88%;
     border-radius: 15px;
-    background: white;
+    background: black;
+}
+
+#ePie{
+    background: rgba(255, 255, 255, 0.753);
+    position: relative;
+    height: 50%;
+    width: 50%;
+    border-radius: 15px;
 }
