@@ -16,7 +16,9 @@ export default function Dashboard() {
             {/* Dashboard main content */}
             <div id='eMain'>
                 <div id='eSidebar'></div>
-                <div id='eContent'></div>
+                <div id='eContent'>
+                    <div id='pie'></div>
+                </div>
             </div>
         </div>
     );
