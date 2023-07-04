@@ -4,7 +4,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background: rgb(2, 2, 53);
+    background: linear-gradient(#00217c, #1a52ec);
     display: flex;
     flex-direction: row;
     overflow: hidden;
@@ -53,7 +53,7 @@ li, ul, ol, a{
 
 .eButtonSub{
     position: relative;
-    border: 1px solid black;
+    border: 1px solid rgba(0, 0, 0, 0.726);
     border-radius: 10px;
     width: 30%;
     height: 100%;
@@ -62,5 +62,53 @@ li, ul, ol, a{
     padding-top: 2%;
     margin-left: 35%;
     color: #000;
+    font-size: large;
     cursor: pointer;
+}
+
+.eButtonSub:hover{
+    background-color: rgb(16, 150, 16);
+    color: white;
+}
+
+/*------------ For small screens------------*/
+@media only screen and (max-width: 500px) {
+    #eSub{
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #eBasic, #ePremium{
+        position: relative;
+        height: 80%;
+        width: 70%;
+        background: white;
+        margin-top: 2%;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-around;
+    }
+}
+
+@media only screen and (max-width: 1000px) {
+    #eSub {
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+    }
+
+    #eBasic,
+    #ePremium {
+        position: relative;
+        height: 80%;
+        width: 55%;
+        background: white;
+        margin-top: 5%;
+        border-radius: 30px;
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+    }
 }
