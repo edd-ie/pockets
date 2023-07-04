@@ -1,0 +1,65 @@
+
+.gCards-container {
+  top: 100px;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.gCard {
+  top: 100px;
+  background-color: rgb(2, 2, 53);
+  color: #ffffff77;
+  border-radius: 10px;
+  padding: 20px;
+  margin: 10px;
+  width: 300px;
+  cursor: pointer;
+}
+
+.gCard:hover {
+  background-color: rgb(33, 33, 138);
+}
+
+.gCard h2 {
+  font-size: 20px;
+  margin-bottom: 10px;
+}
+
+.gCard ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.gCard li {
+  margin-bottom: 5px;
+}
+
+.gTransaction-details {
+  background-color: rgb(2, 2, 53);
+  color: #ffffff77;
+  border-radius: 10px;
+  padding: 20px;
+  margin-top: 20px;
+  width: 300px;
+}
+
+.gTransaction-details h3 {
+  font-size: 18px;
+  margin-bottom: 10px;
+}
+
+.gTransaction-details ul {
+  margin: 0;
+  padding: 0;
+  list-style-type: none;
+}
+
+.gTransaction-details li {
+  margin-bottom: 5px;
+}
+
+.gTransaction-details div {
+  margin-top: 10px;
+}
