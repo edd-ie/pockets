@@ -19,6 +19,10 @@ function App() {
       {
         path: "/cards",
         element: <Cards/>,
+      },
+      {
+        path: "/subscription",
+        element: <Subscription/>
       }
     ]
   );
