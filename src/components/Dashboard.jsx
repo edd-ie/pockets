@@ -1,12 +1,16 @@
 import React from 'react';
 import './Dashboard.css'
+import DashPie from './Dashpie';
 
 export default function Dashboard() {
 
 
     return (
         <div id='eDashboard'>
-            {/* Dashboard header */}
+            {/* Dashboard header  
+             https://www.youtube.com/watch?v=StGOX_gZeLU
+             https://nivo.rocks/pie/
+             */}
             <div id='eHeader'>
                 <div id='eLogo'></div>
                 <div id='eRoutes'></div>
@@ -16,8 +20,9 @@ export default function Dashboard() {
             {/* Dashboard main content */}
             <div id='eMain'>
                 <div id='eSidebar'></div>
+
                 <div id='eContent'>
-                    <div id='pie'></div>
+                    <DashPie/>
                 </div>
             </div>
         </div>
