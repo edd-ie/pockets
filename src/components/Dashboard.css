@@ -59,7 +59,7 @@
     border: 1px solid black;
     position: relative;
     height: 98%;
-    width: 10%;
+    width: 8%;
     border-radius: 15px;
     background: white;
 }
@@ -69,15 +69,32 @@
     border: 1px solid black;
     position: relative;
     height: 98%;
-    width: 88%;
+    width: 90%;
     border-radius: 15px;
-    background: black;
+    background: rgba(0, 0, 0, 0);
 }
 
 #ePie{
-    background: rgba(255, 255, 255, 0.753);
     position: relative;
     height: 50%;
-    width: 50%;
+    width: 100%;
     border-radius: 15px;
+    display: flex;
+    padding: 0;
+    margin: 0;
+    justify-content: space-between;
+}
+
+.eCategory{
+    position: relative;
+    width: 43%;
+    height: 100%;
+    background: rgb(21, 27, 32);
+    border-radius: 15px;
+}
+
+#eCatTotal{
+    position: relative;
+    width: 55%;
+    height: 100%;
 }
