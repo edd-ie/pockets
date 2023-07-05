@@ -1,9 +1,18 @@
-import React, { useState } from 'react';
-import './CardTransactionTable.css'
+import React, { useState, useEffect } from 'react';
+import './CardTransactionTable.css';
 
 const CardTransactionTable = ({ transactions, onAddTransaction }) => {
   const [category, setCategory] = useState('');
   const [amount, setAmount] = useState('');
+  const [apiTransactions, setApiTransactions] = useState([]);
+
+  useEffect(() => {
+    // Fetch transactions from API
+    fetch('https://pockets.onrender.com/cards')
+      .then(response => response.json())
+      .then(data => setApiTransactions(data))
+      .catch(error => console.log(error));
+  }, []);
 
   const handleSubmit = (e) => {
     e.preventDefault();
@@ -29,6 +38,13 @@ const CardTransactionTable = ({ transactions, onAddTransaction }) => {
               <td>{transaction.category}</td>
               <td>{transaction.amount}</td>
               <td>{transaction.created_at}</td>
+            </tr>
+          ))}
+          {apiTransactions.map((transaction, index) => (
+            <tr key={index}>
+              <td>{transaction.category}</td>
+              <td>{transaction.amount}</td>
+              <td>{transaction.date}</td>
             </tr>
           ))}
         </tbody>

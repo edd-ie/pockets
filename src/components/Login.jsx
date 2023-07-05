@@ -1,12 +1,12 @@
 import React, { useState } from 'react';
-import Signup from './Signup';
 import './Login.css';
+import { Link } from "react-router-dom";
 
 const Login = () => {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [message, setMessage] = useState('');
-  const [redirectToSignup, setRedirectToSignup] = useState(false);
+  
 
   const isLoggedIn = false; // Set this to true if user is already logged in
 
@@ -50,6 +50,7 @@ const Login = () => {
       });
   };
 
+
   return (
     <div id='gLogPage'>
       <div id='gSignDiv'>
@@ -58,9 +59,8 @@ const Login = () => {
           <h2>Log in to Pockets</h2>
           {isLoggedIn ? (
             <p>You are already logged in.</p>
-          ) : redirectToSignup ? (
-            <Signup />
-          ) : (
+          ) :  
+           (
             <>
               {message && <p>{message}</p>}
               <form onSubmit={handleSubmit}>
@@ -87,9 +87,9 @@ const Login = () => {
                 <button type="submit">Log In</button>
               </form>
               <p id='gLogInTxt2'>
-                <button type="button" onClick={() => setRedirectToSignup(true)}>
-                  Sign up for Facebook
-                </button>
+               <Link to="/Signup">
+                Sign up to Pockets
+               </Link>
               </p>
             </>
           )}
