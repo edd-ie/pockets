@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from "react";
 import { ResponsivePie } from '@nivo/pie'
 
+
 export default function DashPie({setCatData, userId}) {
     let categories = ['food', 'clothes', 'electronics', 'household', 'other', 'transport', 'health', 'education', 'entertainment']
     const [catTotal, setCatTotal] = useState([])

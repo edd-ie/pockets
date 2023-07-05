@@ -12,7 +12,7 @@ export default function Dashboard({user}) {
         <div id='eDashboard'>
             {/*   
              https://www.youtube.com/watch?v=StGOX_gZeLU
-             https://nivo.rocks/pie/
+            https://nivo.rocks/pie/
              */}
             <div id='eHeader'>
                 <div id='eLogo'></div>
