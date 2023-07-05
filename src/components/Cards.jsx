@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import './Cards.css';
+import CardTransactionTable from './CardTransactionTable';
 
 const Cards = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -12,37 +13,33 @@ const Cards = () => {
     bank: '',
   });
   const [showDropdown, setShowDropdown] = useState(false);
+  const [showTransactionTable, setShowTransactionTable] = useState(false);
+  const [cards, setCards] = useState([]);
 
   useEffect(() => {
-    // Fetch data from API
-    // Example:
-  fetch('URL')
-    .then(response => response.json())
-    .then(data => setTransactions(data))
-    .catch(error => console.log(error));
-
-    // Mock data for testing
-    const testData = [
-      {
-        cardNumber: '1234 5678 9012 3456',
-        details: ['Detail 1'],
-        balance: 100,
-        category: 'Expense',
-        bank: 'CBK'
-      },
-      {
-        cardNumber: '9876 5432 1098 7654',
-        details: ['Detail 2'],
-        balance: 200,
-        category: 'Food',
-        bank: 'Equity'
-      }
-    ];
-    setTransactions(testData);
+    fetch('https://pockets.onrender.com/cards')
+      .then(response => response.json())
+      .then(data => setTransactions(data))
+      .catch(error => console.log(error));
   }, []);
+
+  const handleAddTransaction = (transaction) => {
+    // Add the transaction to the first card
+    const updatedCards = [...cards];
+    updatedCards[0].cardTransactions.push(transaction);
+    setCards(updatedCards);
+  };
 
   const handleCardClick = (transaction) => {
     setSelectedTransaction(transaction);
+  };
+
+  const handleViewTransactions = () => {
+    setShowTransactionTable(true);
+  };
+
+  const handleGoBack = () => {
+    setShowTransactionTable(false);
   };
 
   const handleInputChange = (event) => {
@@ -62,14 +59,26 @@ const Cards = () => {
 
   const handleFormSubmit = (event) => {
     event.preventDefault();
-    setTransactions((prevState) => [...prevState, newCard]);
-    setNewCard({
-      cardNumber: '',
-      details: [],
-      balance: '',
-      category: '',
-      bank: '',
-    });
+
+    fetch('https://pockets.onrender.com/cards', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(newCard),
+    })
+      .then(response => response.json())
+      .then(data => {
+        setTransactions(prevTransactions => [...prevTransactions, data]);
+        setNewCard({
+          cardNumber: '',
+          details: [],
+          balance: '',
+          category: '',
+          bank: '',
+        });
+      })
+      .catch(error => console.log(error));
   };
 
   const toggleDropdown = () => {
@@ -80,15 +89,19 @@ const Cards = () => {
     <div className="gHead">
       <h1>Cards</h1>
       <div className="gCards-container">
-        {transactions.map((transaction, index) => (
-          <div
-            className="gCard"
-            key={index}
-            onClick={() => handleCardClick(transaction)}
-          >
-            <h2>{transaction.cardNumber}</h2>
-          </div>
-        ))}
+        {transactions && transactions.length > 0 ? (
+          transactions.map((transaction, index) => (
+            <div
+              className="gCard"
+              key={index}
+              onClick={() => handleCardClick(transaction)}
+            >
+              <h2>{transaction.name}</h2>
+            </div>
+          ))
+        ) : (
+          <p>No transactions available</p>
+        )}
 
         <div className="gDropdown">
           <button onClick={toggleDropdown}>Toggle Dropdown</button>
@@ -167,11 +180,15 @@ const Cards = () => {
           <div className="gTransaction-details">
             <div className="gModal">
               <h3>Transaction Details</h3>
-              <ul>
-                {selectedTransaction.details.map((detail, index) => (
-                  <li key={index}>{detail}</li>
-                ))}
-              </ul>
+              {selectedTransaction.cardTransactions && selectedTransaction.cardTransactions.length > 0 ? (
+                <ul>
+                  {selectedTransaction.cardTransactions.map((transaction, index) => (
+                    <li key={index}>{transaction.category}: {transaction.amount}</li>
+                  ))}
+                </ul>
+              ) : (
+                <p>No transactions available</p>
+              )}
               <div>
                 <strong>Balance:</strong> {selectedTransaction.balance}
               </div>
@@ -181,11 +198,17 @@ const Cards = () => {
               <div>
                 <strong>Bank:</strong> {selectedTransaction.bank}
               </div>
-              <button onClick={() => setSelectedTransaction(null)}>
-                Close
-              </button>
+              <button onClick={handleViewTransactions}>View Transactions</button>
+              <button onClick={() => setSelectedTransaction(null)}>Close</button>
             </div>
           </div>
+        )}
+
+        {showTransactionTable && (
+          <CardTransactionTable
+            transactions={transactions}
+            goBack={handleGoBack}
+          />
         )}
       </div>
     </div>
