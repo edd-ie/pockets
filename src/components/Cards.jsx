@@ -14,20 +14,78 @@ const Cards = () => {
   });
   const [showDropdown, setShowDropdown] = useState(false);
   const [showTransactionTable, setShowTransactionTable] = useState(false);
-  const [cards, setCards] = useState([]);
+  const [newTransaction, setNewTransaction] = useState({
+    category: '',
+    amount: 0,
+  });
 
   useEffect(() => {
     fetch('https://pockets.onrender.com/cards')
-      .then(response => response.json())
-      .then(data => setTransactions(data))
-      .catch(error => console.log(error));
+      .then((response) => response.json())
+      .then((data) => {
+        setTransactions(data);
+      })
+      .catch((error) => console.log(error));
   }, []);
 
-  const handleAddTransaction = (transaction) => {
-    // Add the transaction to the first card
-    const updatedCards = [...cards];
-    updatedCards[0].cardTransactions.push(transaction);
-    setCards(updatedCards);
+  const handleAddTransaction = (event) => {
+    event.preventDefault();
+
+    // Add the transaction to the selected card
+    const updatedTransactions = [...transactions];
+    const selectedCardIndex = updatedTransactions.findIndex(
+      (card) => card.id === selectedTransaction.id
+    );
+    updatedTransactions[selectedCardIndex].cardTransactions.push(newTransaction);
+
+    // Update the transactions state
+    setTransactions(updatedTransactions);
+
+    // Make an API request to update the transaction in the backend
+    fetch(`https://pockets.onrender.com/cards/${selectedTransaction.id}`, {
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify(selectedTransaction),
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the backend if needed
+        console.log('Transaction added successfully:', data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error('Error adding transaction:', error);
+      });
+
+    // Reset the newTransaction state
+    setNewTransaction({
+      category: '',
+      amount: 0,
+    });
+  };
+
+  const handleRemoveCard = (cardId) => {
+    // Remove the selected card from the transactions
+    const updatedTransactions = transactions.filter((card) => card.id !== cardId);
+
+    // Update the transactions state
+    setTransactions(updatedTransactions);
+
+    // Make an API request to delete the card from the backend
+    fetch(`https://pockets.onrender.com/cards/${cardId}`, {
+      method: 'DELETE',
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the backend if needed
+        console.log('Card deleted successfully:', data);
+      })
+      .catch((error) => {
+        // Handle any errors
+        console.error('Error deleting card:', error);
+      });
   };
 
   const handleCardClick = (transaction) => {
@@ -44,7 +102,7 @@ const Cards = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === "details") {
+    if (name === 'details') {
       setNewCard((prevState) => ({
         ...prevState,
         [name]: [value], // Initialize as an array with the current value
@@ -53,13 +111,15 @@ const Cards = () => {
       setNewCard((prevState) => ({
         ...prevState,
         [name]: value,
-      }));
-    }
+    
+  }));
+   }
   };
 
-  const handleFormSubmit = (event) => {
+  const handleAddCard = (event) => {
     event.preventDefault();
 
+    // Make an API request to add the new card to the backend
     fetch('https://pockets.onrender.com/cards', {
       method: 'POST',
       headers: {
@@ -67,9 +127,15 @@ const Cards = () => {
       },
       body: JSON.stringify(newCard),
     })
-      .then(response => response.json())
-      .then(data => {
-        setTransactions(prevTransactions => [...prevTransactions, data]);
+      .then((response) => response.json())
+      .then((data) => {
+        // Handle the response from the backend if needed
+        console.log('Card added successfully:', data);
+
+        // Update the transactions state with the new card
+        setTransactions((prevState) => [...prevState, data]);
+
+        // Reset the newCard state
         setNewCard({
           cardNumber: '',
           details: [],
@@ -78,7 +144,10 @@ const Cards = () => {
           bank: '',
         });
       })
-      .catch(error => console.log(error));
+      .catch((error) => {
+        // Handle any errors
+        console.error('Error adding card:', error);
+      });
   };
 
   const toggleDropdown = () => {
@@ -118,58 +187,54 @@ const Cards = () => {
 
               <div className="gCard-form">
                 <h3>Add New Card</h3>
-                <form onSubmit={handleFormSubmit}>
+                <form onSubmit={handleAddCard}>
                   <div>
-                    <label htmlFor="cardNumber">Card Number:</label>
                     <input
                       type="text"
-                      id="cardNumber"
+                      placeholder="Card Number"
                       name="cardNumber"
                       value={newCard.cardNumber}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div>
-                    <label htmlFor="details">Details:</label>
                     <input
                       type="text"
-                      id="details"
+                      placeholder="Details"
                       name="details"
-                      value={newCard.details}
+                      value={newCard.details.length ? newCard.details[0] : ''}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div>
-                    <label htmlFor="balance">Balance:</label>
                     <input
                       type="text"
-                      id="balance"
+                      placeholder="Balance"
                       name="balance"
                       value={newCard.balance}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div>
-                    <label htmlFor="category">Category:</label>
                     <input
                       type="text"
-                      id="category"
+                      placeholder="Category"
                       name="category"
                       value={newCard.category}
                       onChange={handleInputChange}
                     />
                   </div>
                   <div>
-                    <label htmlFor="bank">Bank:</label>
                     <input
                       type="text"
-                      id="bank"
+                      placeholder="Bank"
                       name="bank"
                       value={newCard.bank}
                       onChange={handleInputChange}
                     />
                   </div>
-                  <button type="submit">Add Card</button>
+                  <button
+                  type="submit">Add Card</button>
                 </form>
               </div>
             </div>
@@ -180,39 +245,70 @@ const Cards = () => {
           <div className="gTransaction-details">
             <div className="gModal">
               <h3>Transaction Details</h3>
-              {selectedTransaction.cardTransactions && selectedTransaction.cardTransactions.length > 0 ? (
+              {selectedTransaction.cardTransactions &&
+              selectedTransaction.cardTransactions.length > 0 ? (
                 <ul>
                   {selectedTransaction.cardTransactions.map((transaction, index) => (
-                    <li key={index}>{transaction.category}: {transaction.amount}</li>
+                    <li key={index}>
+                      {transaction.category}: {transaction.amount}
+                    </li>
                   ))}
                 </ul>
               ) : (
                 <p>No transactions available</p>
               )}
-              <div>
-                <strong>Balance:</strong> {selectedTransaction.balance}
-              </div>
-              <div>
-                <strong>Category:</strong> {selectedTransaction.category}
-              </div>
-              <div>
-                <strong>Bank:</strong> {selectedTransaction.bank}
-              </div>
-              <button onClick={handleViewTransactions}>View Transactions</button>
+              <form onSubmit={handleAddTransaction}>
+                <div>
+                  <input
+                    type="text"
+                    placeholder="Category"
+                    name="category"
+                    value={newTransaction.category}
+                    onChange={(e) =>
+                      setNewTransaction((prevState) => ({
+                        ...prevState,
+                        category: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <div>
+                  <input
+                    type="number"
+                    placeholder="Amount"
+                    name="amount"
+                    value={newTransaction.amount}
+                    onChange={(e) =>
+                      setNewTransaction((prevState) => ({
+                        ...prevState,
+                        amount: e.target.value,
+                      }))
+                    }
+                  />
+                </div>
+                <button type="submit">Add Transaction</button>
+              </form>
+              <button onClick={() => handleAddTransaction({ category: 'New Transaction', amount: 0 })}>
+                Add Transaction
+              </button>
+              <button onClick={() => handleRemoveCard(selectedTransaction.id)}>Delete Card</button>
               <button onClick={() => setSelectedTransaction(null)}>Close</button>
             </div>
           </div>
         )}
+      </div>
 
-        {showTransactionTable && (
+      {showTransactionTable && (
+        <div className="gTransaction-table">
           <CardTransactionTable
             transactions={transactions}
-            goBack={handleGoBack}
+            handleRemoveCard={handleRemoveCard}
+            handleGoBack={handleGoBack}
           />
-        )}
-      </div>
+        </div>
+      )}
     </div>
   );
-};
+}
 
 export default Cards;
