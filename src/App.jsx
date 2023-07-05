@@ -10,11 +10,12 @@ import LogIn from './components/Login';
 
 
 function App() {
+  const [userId, setUserId] = useState(1);
 
   const router = createBrowserRouter([
       {
         path: "/",
-        element:<Dashboard/>
+        element:<Dashboard user={userId}/>
       },
       {
         path: "/mobile",

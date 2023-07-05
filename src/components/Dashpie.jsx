@@ -7,10 +7,9 @@ import { ResponsivePie } from '@nivo/pie'
 // website examples showcase many properties,
 // you'll often use just a few of them.
 
-export default function DashPie() {
+export default function DashPie({setCatData, userId}) {
     let categories = ['food', 'clothes', 'electronics', 'household', 'other', 'transport', 'health', 'education', 'entertainment']
     const [catTotal, setCatTotal] = useState([])
-    let userId = 1
 
     useEffect(() => {
         fetch(`https://pockets.onrender.com/simCat/${userId}`)
@@ -30,8 +29,8 @@ export default function DashPie() {
                     "color": c[x]
                 })
             }
-            console.log(set)
             setCatTotal(set)
+            setCatData(set)
         })
     },[])
 
