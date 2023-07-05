@@ -31,8 +31,7 @@ export default function DashPie({setCatData, userId}) {
 
 
     return(
-        <div id='ePie'>
-           <div className="eCategory" id=""></div>
+        <>
            <div className="eCategory" id="eCatTotal">
             <ResponsivePie
                 data={catTotal}
@@ -150,7 +149,7 @@ export default function DashPie({setCatData, userId}) {
                 ]}
             />
            </div>
-        </div>
+        </>
     )
 }
 
