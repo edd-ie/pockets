@@ -5,6 +5,9 @@ import Dashboard from './components/Dashboard';
 import Mobile from './components/Mobile';
 import Cards from './components/Cards';
 import Subscription from './components/Subscription';
+import SignUp from './components/Signup';
+import LogIn from './components/Login';
+
 
 function App() {
 
@@ -24,7 +27,16 @@ function App() {
       {
         path: "/subscription",
         element: <Subscription/>
+      },
+      {
+        path: "/signUp",
+        element: <SignUp/> 
+      },
+      {
+        path: "/logIn",
+        element: <LogIn/> 
       }
+
     ]
   );
 
