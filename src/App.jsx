@@ -6,13 +6,16 @@ import Mobile from './components/Mobile';
 import Cards from './components/Cards';
 import Subscription from './components/Subscription';
 import SignUp from './components/Signup';
+import LogIn from './components/Login';
+
 
 function App() {
+  const [userId, setUserId] = useState(1);
 
   const router = createBrowserRouter([
       {
         path: "/",
-        element:<Dashboard/>
+        element:<Dashboard user={userId}/>
       },
       {
         path: "/mobile",
@@ -29,7 +32,12 @@ function App() {
       {
         path: "/signUp",
         element: <SignUp/> 
+      },
+      {
+        path: "/logIn",
+        element: <LogIn/> 
       }
+
     ]
   );
 

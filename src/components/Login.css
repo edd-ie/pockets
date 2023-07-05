@@ -1,0 +1,62 @@
+#gLogPage {
+    max-width: 450px;
+    margin: 0 auto;
+    padding: 50px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    background-color: #f8f8f8;
+    height: 250px;
+    align-content: flex-end;
+  }
+  
+  #gLogPage h2 {
+    margin-bottom: 20px;
+    text-align: center;
+  }
+  
+  #gLogPage p {
+    margin-bottom: 10px;
+    text-align: center;
+  }
+  
+  #gLogPage form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    width: 100%;
+    height: 100%;
+    justify-content: space-around;
+    align-items: center;
+    margin: 0;
+    border-radius: 15px;
+    max-width: 100%;
+  }
+  
+  #gLogPage label {
+    margin-bottom: 5px;
+  }
+  
+  .gInput {
+    position: relative;
+    height: 30px;
+    width: 450px;
+    border-radius: 10px;
+    border: none;
+    padding-left: 5px;
+    justify-content: space-between;
+  }
+  
+  #gLogPage button {
+    padding: 10px 15px;
+    background-color: #4caf50;
+    color: white;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 450px;
+  }
+  
+  #gLogPage button:hover {
+    background-color: #45a049;
+  }
+  
