@@ -2,14 +2,14 @@ import React, { useEffect, useState } from 'react';
 import {ComposedChart, Line, Area, Bar, XAxis, YAxis, CartesianGrid, Tooltip, Legend, ResponsiveContainer, } from 'recharts';
 
 
-export default function DashCalender({data, userId}) {
+export default function DashCalender({data, userId, choice}) {
     const [chartData, setChartData] = useState([]);
     console.log("file: DashCal.jsx:6 -> chartData:", chartData);
 
     // {id: 1, name: 'telcom', balance: 3000, user_id: 1,
     
     useEffect(() => {
-        fetch(`https://pockets.onrender.com/userSims/${userId}`)
+        fetch(`https://pockets.onrender.com/user${choice}s/${userId}`)
         .then(res => res.json())
         .then(data => {
             console.log(data)
@@ -21,7 +21,7 @@ export default function DashCalender({data, userId}) {
             setChartData(set)
         })
 
-    },[])
+    },[choice])
 
 
     return(

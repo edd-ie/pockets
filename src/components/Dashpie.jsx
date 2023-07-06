@@ -2,14 +2,15 @@ import React, { useEffect, useState } from "react";
 import { ResponsivePie } from '@nivo/pie'
 
 
-export default function DashPie({setCatData, userId}) {
+export default function DashPie({setCatData, userId, choice}) {
     let categories = ['food', 'clothes', 'electronics', 'household', 'other', 'transport', 'health', 'education', 'entertainment']
     const [catTotal, setCatTotal] = useState([])
 
     useEffect(() => {
-        fetch(`https://pockets.onrender.com/simCat/${userId}`)
+        fetch(`https://pockets.onrender.com/${choice}Cat/${userId}`)
         .then(res => res.json())
         .then(data => {
+            console.log("file: Dashpie.jsx:13 -> useEffect -> data:", data);
             let set = []
             let c = ["hsl(77, 70%, 50%)", "hsl(118, 70%, 50%)", "hsl(182, 70%, 50%)",
             "hsl(324, 70%, 50%)", "hsl(308, 70%, 50%)", "hsl(247, 70%, 50%)", 
@@ -27,7 +28,7 @@ export default function DashPie({setCatData, userId}) {
             setCatTotal(set)
             setCatData(set)
         })
-    },[])
+    },[choice])
 
 
     return(
