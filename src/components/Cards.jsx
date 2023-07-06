@@ -155,6 +155,7 @@ const Cards = () => {
   };
 
   return (
+    <div id='gCardsHome'>
     <div className="gHead">
       <h1>Cards</h1>
       <div className="gCards-container">
@@ -173,7 +174,7 @@ const Cards = () => {
         )}
 
         <div className="gDropdown">
-          <button onClick={toggleDropdown}>Toggle Dropdown</button>
+          <button id='gBTN' onClick={toggleDropdown}>Add Card</button>
           {showDropdown && (
             <div className="gDropdown-content">
               <div className="card-details">
@@ -288,9 +289,7 @@ const Cards = () => {
                 </div>
                 <button type="submit">Add Transaction</button>
               </form>
-              <button onClick={() => handleAddTransaction({ category: 'New Transaction', amount: 0 })}>
-                Add Transaction
-              </button>
+        
               <button onClick={() => handleRemoveCard(selectedTransaction.id)}>Delete Card</button>
               <button onClick={() => setSelectedTransaction(null)}>Close</button>
             </div>
@@ -307,6 +306,7 @@ const Cards = () => {
           />
         </div>
       )}
+    </div>
     </div>
   );
 }
