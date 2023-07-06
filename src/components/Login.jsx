@@ -3,7 +3,7 @@ import './Login.css';
 import { Link,useNavigate } from "react-router-dom";
 
 
-const Login = () => {
+const Login = ({setWebState}) => {
   const [userData, setUserData] = useState([])
   const [loggedIn, setLoggedIn] = useState(false)
   
@@ -23,7 +23,8 @@ const Login = () => {
     .then(data=>{setUserData(data);
       setLoggedIn(true);
       data ? navigate("/") :0
-      console.log('User:', data)})
+      setWebState(loggedIn)}
+    )
     form.reset()
   }
 
