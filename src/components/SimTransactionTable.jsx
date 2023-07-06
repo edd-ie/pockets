@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import './SimTransactionTable.css';
+
 
 const SimTransactionTable = ({ transactions, onAddTransaction }) => {
   const [category, setCategory] = useState('');

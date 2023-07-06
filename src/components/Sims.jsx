@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import './Sims.css';
 import SimTransactionTable from './SimTransactionTable.jsx';
 
 const Sims = () => {
@@ -173,7 +172,7 @@ const Sims = () => {
         )}
 
         <div className="gDropdown">
-          <button onClick={toggleDropdown}>Toggle Dropdown</button>
+          <button onClick={toggleDropdown}>Sim Details</button>
           {showDropdown && (
             <div className="gDropdown-content">
               <div className="sim-details">
