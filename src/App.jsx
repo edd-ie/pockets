@@ -2,7 +2,7 @@ import { useState } from 'react'
 import './App.css'
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
 import Dashboard from './components/Dashboard';
-import Mobile from './components/Mobile';
+import Sims from './components/Sims';
 import Cards from './components/Cards';
 import Subscription from './components/Subscription';
 import SignUp from './components/Signup';
@@ -18,8 +18,8 @@ function App() {
         element:<Dashboard user={userId}/>
       },
       {
-        path: "/mobile",
-        element: <Mobile/>,
+        path: "/sims",
+        element: <Sims/>,
       },
       {
         path: "/cards",
