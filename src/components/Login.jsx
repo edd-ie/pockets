@@ -1,55 +1,31 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link } from "react-router-dom";
+import { Link,useNavigate } from "react-router-dom";
+
 
 const Login = () => {
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
-  const [message, setMessage] = useState('');
+  const [userData, setUserData] = useState([])
+  const [loggedIn, setLoggedIn] = useState(false)
   
+  const navigate = useNavigate();
 
-  const isLoggedIn = false; // Set this to true if user is already logged in
+  function handleLogin(e) {
+    e.preventDefault();
+    let form = e.target;
+    let mail = e.target.elements[0].value;
+    let pass = e.target.elements[1].value;
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    // Check if user is already logged in
-    if (isLoggedIn) {
-      setMessage('You are already logged in.');
-      return;
-    }
-
-    // Send the data to the backend
-    const data = {
-      email,
-      password,
-    };
-
-    // Make an API request to send the data to the backend
-    // Example using fetch:
-    fetch('https://pockets.onrender.com/users', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(data),
-    })
-      .then((response) => response.json())
-      .then((result) => {
-        // Handle the response from the backend
-        if (result.success) {
-          setMessage('Congratulations! Login successful.');
-        } else {
-          setMessage(result.message);
-        }
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error(error);
-        setMessage('An error occurred. Please try again.');
-      });
-  };
-
+    fetch("https://pockets.onrender.com//login",{
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify({"email": mail, "password": pass})
+    }).then(res=>res.json())
+    .then(data=>{setUserData(data);
+      setLoggedIn(true);
+      data ? navigate("/") :0
+      console.log('User:', data)})
+    form.reset()
+  }
 
   return (
     <div id='gloginHome'>
@@ -58,34 +34,30 @@ const Login = () => {
           <div className='gLog' id='gLog1'></div>
           <div className='gLog' id='gLog2'>
             <h2>Log in to Pockets</h2>
-            {isLoggedIn ? (
+            {loggedIn ? (
               <p>You are already logged in.</p>
             ) :  
             (
               <>
-                {message && <p>{message}</p>}
-                <form onSubmit={handleSubmit}>
+                {/* {message && <p>{message}</p>} */}
+                <form onSubmit={handleLogin}>
                   <div>
                     <input
                       className='gInput'
                       type="email"
                       placeholder="Email address"
-                      value={email}
-                      onChange={(e) => setEmail(e.target.value)}
                       required
                     />
                   </div>
                   <div>
                     <input
                       className='gInput'
-                      type="text"
+                      type="password"
                       placeholder="Password"
-                      value={password}
-                      onChange={(e) => setPassword(e.target.value)}
                       required
                     />
                   </div>
-                  <button type="submit">Log In</button>
+                    <button type="submit">Log In</button>
                 </form>
                 <p id='gLogInTxt2'>
                 <Link to="/Signup">
