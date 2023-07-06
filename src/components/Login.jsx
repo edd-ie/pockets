@@ -52,47 +52,49 @@ const Login = () => {
 
 
   return (
-    <div id='gLogPage'>
-      <div id='gSignDiv'>
-        <div className='gLog' id='gLog1'></div>
-        <div className='gLog' id='gLog2'>
-          <h2>Log in to Pockets</h2>
-          {isLoggedIn ? (
-            <p>You are already logged in.</p>
-          ) :  
-           (
-            <>
-              {message && <p>{message}</p>}
-              <form onSubmit={handleSubmit}>
-                <div>
-                  <input
-                    className='gInput'
-                    type="email"
-                    placeholder="Email address"
-                    value={email}
-                    onChange={(e) => setEmail(e.target.value)}
-                    required
-                  />
-                </div>
-                <div>
-                  <input
-                    className='gInput'
-                    type="text"
-                    placeholder="Password"
-                    value={password}
-                    onChange={(e) => setPassword(e.target.value)}
-                    required
-                  />
-                </div>
-                <button type="submit">Log In</button>
-              </form>
-              <p id='gLogInTxt2'>
-               <Link to="/Signup">
-                Sign up to Pockets
-               </Link>
-              </p>
-            </>
-          )}
+    <div id='gloginHome'>
+      <div id='gLogPage'>
+        <div id='gSignDiv'>
+          <div className='gLog' id='gLog1'></div>
+          <div className='gLog' id='gLog2'>
+            <h2>Log in to Pockets</h2>
+            {isLoggedIn ? (
+              <p>You are already logged in.</p>
+            ) :  
+            (
+              <>
+                {message && <p>{message}</p>}
+                <form onSubmit={handleSubmit}>
+                  <div>
+                    <input
+                      className='gInput'
+                      type="email"
+                      placeholder="Email address"
+                      value={email}
+                      onChange={(e) => setEmail(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <div>
+                    <input
+                      className='gInput'
+                      type="text"
+                      placeholder="Password"
+                      value={password}
+                      onChange={(e) => setPassword(e.target.value)}
+                      required
+                    />
+                  </div>
+                  <button type="submit">Log In</button>
+                </form>
+                <p id='gLogInTxt2'>
+                <Link to="/Signup">
+                  Sign up to Pockets
+                </Link>
+                </p>
+              </>
+            )}
+          </div>
         </div>
       </div>
     </div>
