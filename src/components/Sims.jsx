@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import SimTransactionTable from './SimTransactionTable.jsx';
+import "./Sims.css";
 
 const Sims = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -9,7 +10,7 @@ const Sims = () => {
     details: [],
     balance: '',
     category: '',
-    bank: '',
+    sim: '',
   });
   const [showDropdown, setShowDropdown] = useState(false);
   const [showTransactionTable, setShowTransactionTable] = useState(false);
@@ -91,10 +92,6 @@ const Sims = () => {
     setSelectedTransaction(transaction);
   };
 
-  const handleViewTransactions = () => {
-    setShowTransactionTable(true);
-  };
-
   const handleGoBack = () => {
     setShowTransactionTable(false);
   };
@@ -140,7 +137,7 @@ const Sims = () => {
           details: [],
           balance: '',
           category: '',
-          bank: '',
+          sim: '',
         });
       })
       .catch((error) => {
@@ -159,7 +156,7 @@ const Sims = () => {
       <div className="gSims-container">
         {transactions && transactions.length > 0 ? (
           transactions.map((transaction, index) => (
-            <div
+            <div id={'sim'+(index +1)}
               className="gSim"
               key={index}
               onClick={() => handleSimClick(transaction)}
@@ -178,10 +175,9 @@ const Sims = () => {
               <div className="sim-details">
                 <h2>Sim Details</h2>
                 <p>Sim Number: {newSim.simNumber ? newSim.simNumber : 'N/A'}</p>
-                <p>Details: {newSim.details.length ? newSim.details.join(', ') : 'N/A'}</p>
                 <p>Balance: {newSim.balance ? newSim.balance : 'N/A'}</p>
                 <p>Category: {newSim.category ? newSim.category : 'N/A'}</p>
-                <p>Bank: {newSim.bank ? newSim.bank : 'N/A'}</p>
+                <p>Sim: {newSim.sim ? newSim.sim : 'N/A'}</p>
               </div>
 
               <div className="gSim-form">
@@ -196,15 +192,7 @@ const Sims = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Details"
-                      name="details"
-                      value={newSim.details.length ? newSim.details[0] : ''}
-                      onChange={handleInputChange}
-                    />
-                  </div>
+
                   <div>
                     <input
                       type="text"
@@ -226,9 +214,9 @@ const Sims = () => {
                   <div>
                     <input
                       type="text"
-                      placeholder="Bank"
-                      name="bank"
-                      value={newSim.bank}
+                      placeholder="Sim"
+                      name="sim"
+                      value={newSim.sim}
                       onChange={handleInputChange}
                     />
                   </div>
@@ -287,9 +275,6 @@ const Sims = () => {
                 </div>
                 <button type="submit">Add Transaction</button>
               </form>
-              <button onClick={() => handleAddTransaction({ category: 'New Transaction', amount: 0 })}>
-                Add Transaction
-              </button>
               <button onClick={() => handleRemoveSim(selectedTransaction.id)}>Delete Sim</button>
               <button onClick={() => setSelectedTransaction(null)}>Close</button>
             </div>
