@@ -53,10 +53,41 @@
 
 #eRoutes{
     position: relative;
-    background: white;
     height: 100%;
     width: 80%;
     margin: 0;
+    display: flex;
+    padding: 0px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: solid rgb(133, 130, 130);
+    gap: -9px;
+}
+
+
+.eDashRoute{
+    position: relative;
+    height: 60%;
+    width: 90px;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 10%;
+}
+
+.eDashRoute h2{
+    position: relative;
+    border-bottom: 0.8px solid rgb(80, 80, 80);
+    border-radius: 8px;
+    width: 122%;
+    padding-top: 0%;
+    margin-top: 24%;
+    color: #8a8a8a;
+}
+
+.eDashRoute h2:hover{
+    color: #d8d3d3;
+    border-top: 0.9px solid rgb(99, 97, 97);
+    border-bottom:navy;
 }
 
 #eProfile{
@@ -82,7 +113,7 @@
     border: 1px solid black;
     position: relative;
     height: 98%;
-    width: 7%;
+    width: 8%;
     border-radius: 15px;
     background: rgba(119, 119, 119, 0.418);
     display: flex;
@@ -94,19 +125,55 @@
 .eTabs{
     position: relative;
     width: 80%;
-    height: 11%;
+    height: 12%;
     background: rgb(21, 27, 32);
-    margin-top: 8%;
+    margin-top: 10%;
     border-radius: 20px;
     color: white;
     text-align: center;
     cursor: pointer;
 }
 
+.eTabLong {
+    position: relative;
+    width: 80%;
+    height: 40%;
+    background: rgb(21, 27, 32);
+    margin-top: 10%;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: center;
+}
+
 .eIconsTab{
     position: relative;
     font-size: 45px;
-    margin-top: 12%;
+    margin-top: 18%;
+}
+
+.eLongDate{
+    margin-top: 15%;
+    padding-top: 13%;
+    border-top: 4px solid white;
+    width: 80%;
+}
+
+#eTabTime{
+    background: rgb(21, 27, 32);
+    width: 80%;
+    margin-top: 13%;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: center;
+    height: 25%;
 }
 
 .eTabs:hover{
