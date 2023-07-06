@@ -2,13 +2,32 @@
 .gHead {
   text-align: center;
   margin-bottom: 20px;
+  color: #ccc;
 }
 
 .gCards-container {
-  display: flex;
-  flex-wrap: wrap;
-  justify-content: center;
   position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 700px;
+  position: relative;
+  overflow-x: scroll;
+  justify-content: center;
+}
+
+#gBTN{
+  color: #ccc;
+  position: absolute;
+  top: 50%;
+  right: 16%;
+  width: 150px;
+  height: 70px;
+  background: #161a1b;
+  border-radius: 15px;
+}
+
+#gBTN:hover {
+  color:#30383a;
 }
 
 .gCard {
@@ -92,7 +111,7 @@
 }
 
 .gModal {
-  background-color: #eca72c;
+  background-color: #485855;
   padding: 20px;
   border-radius: 4px;
   box-shadow: 0 0 10px black;
@@ -118,8 +137,9 @@
   max-width: 400px;
   margin: 20px auto;
   padding: 20px;
-  background-color: #fda300;
+  background-color: #485855;
   border-radius: 8px;
+  right: 0px;
 }
 
 .gCard-form h3 {
@@ -146,7 +166,7 @@
 
 .gCard-form button {
   padding: 10px 20px;
-  background-color: #fa841a;
+  background-color: #161a1b;
   color: #fff;
   border: none;
   border-radius: 4px;
@@ -154,5 +174,16 @@
 }
 
 .gCard-form button:hover {
-  background-color: #ffc619;
+  background-color: #30383a;
+}
+
+#gCardsHome {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background:  linear-gradient(#2c0000, #5e0707);
+  justify-content: center;
+  align-items: center;
 }

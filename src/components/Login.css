@@ -1,8 +1,10 @@
 #gLogPage {
+    position: relative;
     max-width: 450px;
     margin: 0 auto;
+    margin-top: 20%;
     padding: 50px;
-    border: 1px solid #ccc;
+    border: 1px solid #817676;
     border-radius: 5px;
     background-color: #f8f8f8;
     height: 250px;
@@ -59,4 +61,16 @@
   #gLogPage button:hover {
     background-color: #45a049;
   }
+
+
+#gloginHome{
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background:  linear-gradient(#2c0000, #5e0707);
+  justify-content: center;
+  align-items: center;
+}
   
