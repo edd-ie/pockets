@@ -1,0 +1,210 @@
+
+.gHead {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #ccc;
+}
+
+.gSims-container {
+  position: relative;
+  display: flex;
+  flex-direction: row;
+  height: 700px;
+  position: relative;
+  overflow-x: scroll;
+  justify-content: center;
+}
+
+#gBTN{
+  color: #ccc;
+  position: absolute;
+  top: 50%;
+  right: 16%;
+  width: 150px;
+  height: 70px;
+  background: #161a1b;
+  border-radius: 15px;
+}
+
+#gBTN:hover {
+  color:#30383a;
+}
+
+
+.gSim {
+  /* background-image: url('https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQRTNEd5sKb55zKWOUrVgj0p6zPln3BARs4d3QyMGgyK3IAAToEEzAuTuNZtKE9eTJXMgI&usqp=CAU'); */
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  border-radius: 8px;
+  padding: 20px;
+  margin: 10px;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+  position: relative;
+  width: 250px;
+  height: 150px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border: 1px solid white;
+}
+
+#sim1{
+    background-image: url(src/components/images/Telecom.PNG);
+}
+
+#sim2{
+  background-image: url(src/components/images/Airtel.PNG);
+  /* background-size: cover; */
+  background-repeat: no-repeat;
+  background-size: contain;
+}
+
+#sim3{
+  background-image: url(src/components/images/Safaricom.PNG);
+  background-size: contain;
+}
+
+#sim4{
+}
+
+.gSim:hover::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 1;
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.gSim:hover::after {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: #fff;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  z-index: 2;
+  opacity: 0;
+  transition: opacity 0.5s ease;
+}
+
+.gSim:hover::before,
+.gSim:hover::after {
+  opacity: 1;
+}
+
+
+.gSim img {
+  width: 100%;
+  height: auto;
+  transition: transform 0.3s ease;
+}
+
+.gSim:hover img {
+  transform: scale(1.05);
+}
+
+.gSim h2 {
+  margin: 0;
+  font-size: 16px;
+}
+
+.gTransaction-details {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgba(0, 0, 0, 0.5);
+  z-index: 9999;
+}
+
+.gModal {
+  background-color: #485855;
+  padding: 20px;
+  border-radius: 4px;
+  box-shadow: 0 0 10px black;
+  max-width: 400px;
+  width: 80%;
+}
+
+.gModal h3 {
+  margin: 0 0 10px;
+}
+
+.gModal ul {
+  list-style-type: none;
+  padding: 0;
+  margin: 0 0 10px;
+}
+
+.gModal li {
+  margin-bottom: 5px;
+}
+
+.gSim-form {
+  max-width: 400px;
+  margin: 20px auto;
+  padding: 20px;
+  background-color: #485855;
+  border-radius: 8px;
+  right: 0px;
+}
+
+.gSim-form h3 {
+  margin: 0 0 20px;
+}
+
+.gSim-form form {
+  display: flex;
+  flex-direction: column;
+}
+
+.gSim-form label {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.gSim-form input {
+  padding: 10px;
+  margin-bottom: 10px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  
+}
+
+.gSim-form button {
+  padding: 10px 20px;
+  background-color: #161a1b;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.gSim-form button:hover {
+  background-color: #30383a;
+}
+
+#gSimsHome {
+  position: absolute;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  background:  linear-gradient(#2c0000, #5e0707);
+  justify-content: center;
+  align-items: center;
+}
