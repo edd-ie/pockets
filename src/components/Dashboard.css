@@ -92,11 +92,22 @@
 
 #eProfile{
     position: relative;
-    background: white;
-    height: 100%;
-    width: 5%;
+    background: rgba(119, 119, 119, 0.418);
+    height: 40%;
+    width: 4%;
     margin: 0;
-    border-radius: 50%;
+    border-radius: 15px;
+    text-align: center;
+    padding-top: 0.5%;
+    margin-top: 1.5%;
+    margin-right: 1%;
+    color: rgb(161, 161, 161);
+    cursor: pointer;
+}
+
+#eProfile:hover{
+    background: rgb(226, 31, 31);
+    color: rgb(0, 0, 0);
 }
 
 #eMain{

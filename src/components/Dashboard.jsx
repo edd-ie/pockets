@@ -55,7 +55,13 @@ export default function Dashboard({user}) {
                         <div className='eDashRoute'><h2>Saving</h2></div>
                     </Link>
                 </div>
-                <div id='eProfile'></div>
+                <div id='eProfile'>
+                    <Link to='/login'>
+                        <span className="material-symbols-sharp">
+                        logout
+                        </span>
+                     </Link>
+                </div>
             </div>
 
             {/* Dashboard main content */}
