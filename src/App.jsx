@@ -16,7 +16,9 @@ function App() {
   useEffect(() => {
     fetch("https://pockets.onrender.com/me")
     .then(res => res.json())
-    .then(data => setUserId(data.id))
+    .then(data => {
+      console.log("file: App.jsx:20 -> useEffect -> data:", data);
+      setUserId(data.id)})
   },[])
 
   const router = createBrowserRouter([

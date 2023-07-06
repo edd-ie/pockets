@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import SimTransactionTable from './SimTransactionTable.jsx';
 import "./Sims.css";
+import { Link } from 'react-router-dom';
 
 const Sims = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -152,6 +153,11 @@ const Sims = () => {
 
   return (
     <div className="gHead">
+      <Link to='/'>
+        <div id='mainLogo'>
+          <h1>Poc<span>KetS</span></h1>
+        </div>
+      </Link>
       <h1>Sims</h1>
       <div className="gSims-container">
         {transactions && transactions.length > 0 ? (

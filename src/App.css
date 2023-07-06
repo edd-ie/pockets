@@ -17,3 +17,35 @@ li, ul, ol, a{
 ul{
     list-style-type: none
 }
+
+#mainLogo{
+    position: absolute;
+    top: 0%;
+    left: 2%;
+    margin: 0;
+    text-align: center;
+    font-family:cursive;
+    font-size: large;
+    cursor: pointer;
+}
+
+#mainLogo h1 {
+    position: relative;
+    margin: 0;
+    margin-top: 5%;
+    color: rgb(231, 227, 227);
+}
+
+#mainLogo h1:hover {
+    color: rgb(199, 25, 69)
+}
+
+#mainLogo h1 span {
+    position: relative;
+    margin: 0;
+    color: rgb(199, 25, 69);
+}
+
+#mainLogo h1 span:hover {
+    color: rgb(231, 227, 227);
+}

@@ -35,7 +35,9 @@ export default function Dashboard({user}) {
     return (
         <div id='eDashboard'>
             <div id='eHeader'>
-                <div id='eLogo'></div>
+                <div id='eLogo'>
+                    <h1>Poc<span>KetS</span></h1>
+                </div>
                 <div id='eRoutes'></div>
                 <div id='eProfile'></div>
             </div>
