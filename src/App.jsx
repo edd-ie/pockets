@@ -13,10 +13,10 @@ function App() {
   const [userId, setUserId] = useState(1);
 
   const router = createBrowserRouter([
-      // {
-      //   path: "/",
-      //   element:<Dashboard user={userId}/>
-      // },
+      {
+        path: "/",
+        element:<Dashboard user={userId}/>
+      },
       {
         path: "/sims",
         element: <Sims/>,

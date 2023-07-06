@@ -14,7 +14,8 @@ export default function Dashboard({user}) {
         fetch(`https://pockets.onrender.com/uCardBal/${user}`)
         .then(res => res.json())
         .then(data => {
-            setSimBalance([data,'Sim'])
+            console.log("file: Dashboard.jsx:17 -> useEffect -> data:", data);
+            setSimBalance(data)
         })
         .catch(err => console.log(err))    
     },[])
@@ -36,9 +37,9 @@ export default function Dashboard({user}) {
                     <div id='ePie'>
                         <div className="eCategory" id="eGreet">
                             <div className='eCatGreet'>
-                                <h1 className='eGTxt'>Welcome {simBalance[0][0].username}...</h1>
-                                <h2 className='eGTxt'>{simBalance[1]} Balance: $ {simBalance[0][0].balance}</h2>
-                                <p className='eGTxt'>Tier: {simBalance[0][0].sub}</p>
+                                <h1 className='eGTxt'>Welcome {simBalance.length ==0? 'name':simBalance[0].username}</h1>
+                                <h2 className='eGTxt'>SIm Balance: $ {simBalance.length ==0? 'name':simBalance[0].balance}</h2>
+                                <p className='eGTxt'>Tier: {simBalance.length ==0? 'name':simBalance[0].sub}</p>
                             </div>
                             <div className='eCatGreet'>
                                 
