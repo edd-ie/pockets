@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './Cards.css';
 import CardTransactionTable from './CardTransactionTable';
+import { Link } from 'react-router-dom';
 
 const Cards = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
@@ -156,6 +157,11 @@ const Cards = () => {
 
   return (
     <div id='gCardsHome'>
+      <Link to='/'>
+        <div id='mainLogo'>
+          <h1>Poc<span>KetS</span></h1>
+        </div>
+      </Link>
     <div className="gHead">
       <h1>Cards</h1>
       <div className="gCards-container">

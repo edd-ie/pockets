@@ -4,52 +4,69 @@ import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContai
 export default function DashVol({userId, choice}) {
     const [volData, setVolData] = React.useState([]);
 
+    const dataTst = [
+        {
+            name: 'jun/28',
+            amount: 400
+        },
+        {
+            name: 'jun/29',
+            amount: 3000
+        },
+        {
+            name: 'jun/30',
+            amount: 2000
+        },
+        {
+            name: 'jun/1',
+            amount: 2780
+        },
+        {
+            name: 'jun/2',
+            amount: 1890
+        },
+        {
+            name: 'jun/3',
+            amount: 900,
+        },
+        {
+            name: 'jun/3',
+            amount: 1800
+        },
+        {
+            name: 'jun/4',
+            amount: 3900
+        },
+        {
+            name: 'jun/5',
+            amount: 3000
+        }
+    ];
+
     useEffect(() => {
-        fetch(`https://pockets.onrender.com/cardUsage/${userId}`)
+        fetch(`https://pockets.onrender.com/${choice}Usage/${userId}`)
         .then(res => {
             if (res.ok) {
                 return res.json();
             }
         })
         .then(data => {
-            console.log("file: DashVol.jsx:15 -> useEffect -> data:", data);
-            
-        })
+            console.log("file: DashVol.jsx:15 -> useEffect -> data:", data[0]['created_at']);
+            let dataset = [];
+            for(let x = data.length-1; x >= 0; x--){
+                dataset.push({name:data[x]['created_at'], amount:data[x]['amount']});
+            }
+            setVolData(dataset)
+        }
+        )
         .catch(err => console.log(err));
     
 
     },[])
 
-    const data = [
-    {
-        name: 'Page A',
-        uv: 400
-    },
-    {
-        name: 'Page B',
-        uv: 3000,
-        pv: 1398,
-        amt: 2210,
-    },
-    {
-        name: 'Page C',
-        uv: 2000,
-        pv: 9800,
-        amt: 2290,
-    },
-    {
-        name: 'Page D',
-        uv: 2780,
-        pv: 3908,
-        amt: 2000,
-    },
-    {
-        name: 'Page E',
-        uv: 1890,
-        pv: 4800,
-        amt: 2181,
-    }
-    ];
+    //{id: 10, category: 'recreation', amount: 1000, card_id: 1, created_at: '04/Jul'}
+
+    
 
     return (
         <div id="eDashVol">
@@ -57,7 +74,7 @@ export default function DashVol({userId, choice}) {
                 <AreaChart
                 width={500}
                 height={400}
-                data={data}
+                data={choice == 'sim' ? dataTst: volData}
                 margin={{
                     top: 20,
                     right: 22,
@@ -69,7 +86,7 @@ export default function DashVol({userId, choice}) {
                 <XAxis dataKey="name" />
                 <YAxis />
                 <Tooltip />
-                <Area type="monotone" dataKey="uv" stroke="#8884d8" fill="rgba(0, 240, 0, 0.637)" />
+                <Area type="monotone" dataKey="amount" stroke="#8884d8" fill="rgba(0, 240, 0, 0.637)" />
                 </AreaChart>
             </ResponsiveContainer>
         </div>
