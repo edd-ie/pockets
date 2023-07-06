@@ -29,13 +29,13 @@ export default function DashCalender({data, userId}) {
            <ResponsiveContainer width="100%" height="100%">
                 <ComposedChart
                 width={500}
-                height={400}
+                height={500}
                 data={chartData}
                 margin={{
-                    top: 20,
-                    right: 20,
-                    bottom: 20,
-                    left: 20,
+                    top: 30,
+                    right: 10,
+                    bottom: 10,
+                    left: 10,
                 }}
                 >
                 <CartesianGrid stroke="#f5f5f5" />
