@@ -1,24 +1,24 @@
 import React, { useEffect } from "react";
 import { AreaChart, Area, XAxis, YAxis, CartesianGrid, Tooltip, ResponsiveContainer } from 'recharts';
 
-export default function DashVol({userId}) {
+export default function DashVol({userId, choice}) {
     const [volData, setVolData] = React.useState([]);
 
-    // useEffect(() => {
-    //     fetch(`https://pockets.onrender.com/cardUsage/${userId}`)
-    //     .then(res => {
-    //         if (res.ok) {
-    //             return res.json();
-    //         }
-    //     })
-    //     .then(data => {
-    //         console.log("file: DashVol.jsx:15 -> useEffect -> data:", data);
+    useEffect(() => {
+        fetch(`https://pockets.onrender.com/cardUsage/${userId}`)
+        .then(res => {
+            if (res.ok) {
+                return res.json();
+            }
+        })
+        .then(data => {
+            console.log("file: DashVol.jsx:15 -> useEffect -> data:", data);
             
-    //     })
-    //     .catch(err => console.log(err));
+        })
+        .catch(err => console.log(err));
     
 
-    // },[])
+    },[])
 
     const data = [
     {
