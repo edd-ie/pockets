@@ -18,16 +18,18 @@
 #gBTN{
   color: #ccc;
   position: absolute;
-  top: 50%;
-  right: 16%;
-  width: 150px;
-  height: 70px;
+  top: 70%;
+  right: 20%;
+  width: 120px;
+  height: 60px;
   background: #161a1b;
+  border: none;
   border-radius: 15px;
 }
 
 #gBTN:hover {
-  color:#30383a;
+  color:black;
+  background: white;
 }
 
 .gCard {
@@ -42,7 +44,7 @@
   transition: background-color 0.3s ease;
   position: relative;
   width: 250px;
-  height: 150px;
+  height: 140px;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -133,6 +135,14 @@
   margin-bottom: 5px;
 }
 
+#gHead-title{
+  color: white;
+  margin-top: 2%;
+  border-bottom: 5px solid white;
+  width: 8%;
+  margin-left: 45%;
+}
+
 .gCard-form {
   max-width: 400px;
   margin: 20px auto;
@@ -183,7 +193,28 @@
   padding: 0;
   width: 100vw;
   height: 100vh;
-  background:  linear-gradient(#2c0000, #5e0707);
+  background:  linear-gradient(#020202, #df0303);
   justify-content: center;
   align-items: center;
+  overflow: hidden;
+}
+
+#gHelp{
+  position: absolute;
+  top:78%;
+  left: 15%;
+  color: rgba(255, 255, 255, 0.651);
+  display: flex;
+  flex-direction: row;
+  padding: 0;
+  justify-content: space-between;
+  align-items: left;
+  text-align: left;
+  width: 24.5%;
+}
+
+#gHelp span{
+  padding: 0;
+  margin: 0;
+  margin-top: 4.5%;
 }

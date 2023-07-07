@@ -159,11 +159,11 @@ const Cards = () => {
     <div id='gCardsHome'>
       <Link to='/'>
         <div id='mainLogo'>
-          <h1>Poc<span>KetS</span></h1>
+          <h1>POC<span>KETS</span></h1>
         </div>
       </Link>
     <div className="gHead">
-      <h1>Cards</h1>
+      <h1 id='gHead-title'>Cards</h1>
       <div className="gCards-container">
         {transactions && transactions.length > 0 ? (
           transactions.map((transaction, index) => (
@@ -180,7 +180,7 @@ const Cards = () => {
         )}
 
         <div className="gDropdown">
-          <button id='gBTN' onClick={toggleDropdown}>Add Card</button>
+          {!showDropdown &&<button id='gBTN' onClick={toggleDropdown}>Add Card</button>}
           {showDropdown && (
             <div className="gDropdown-content">
               <div className="card-details">
@@ -241,7 +241,7 @@ const Cards = () => {
                     />
                   </div>
                   <button
-                  type="submit">Add Card</button>
+                  type="submit" onClick={toggleDropdown}>Add Card</button>
                 </form>
               </div>
             </div>
@@ -312,6 +312,12 @@ const Cards = () => {
           />
         </div>
       )}
+    </div>
+    <div id='gHelp'>
+      <span class="material-symbols-sharp">
+        info
+      </span>
+      <p>Click on a card to view/add transactions</p>
     </div>
     </div>
   );
