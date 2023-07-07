@@ -2,7 +2,7 @@
     position: relative;
     max-width: 450px;
     margin: 0 auto;
-    margin-top: 20%;
+    margin-top: 15%;
     padding: 50px;
     border: 1px solid #817676;
     border-radius: 5px;
@@ -11,6 +11,19 @@
     align-content: flex-end;
   }
   
+#gLogInTxt2{
+  width: 50%;
+  height: 20%;
+  margin-left: 25%;
+  border-radius: 15px;
+  background: rgba(220, 220, 220, 0.74);
+}
+
+#gLogInTxt2:hover{
+  background: rgb(77, 179, 238);
+  color: white;
+}
+
   #gLogPage h2 {
     margin-bottom: 20px;
     text-align: center;

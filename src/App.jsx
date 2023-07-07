@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './App.css'
 import {createBrowserRouter,RouterProvider} from "react-router-dom";
 import Dashboard from './components/Dashboard';
@@ -11,6 +11,15 @@ import LogIn from './components/Login';
 
 function App() {
   const [userId, setUserId] = useState(1);
+  const [user, setUser] = useState([]);
+
+  useEffect(() => {
+    fetch("https://pockets.onrender.com/me")
+    .then(res => res.json())
+    .then(data => {
+      console.log("file: App.jsx:20 -> useEffect -> data:", data);
+      setUserId(data.id)})
+  },[])
 
   const router = createBrowserRouter([
       {
@@ -35,7 +44,7 @@ function App() {
       },
       {
         path: "/logIn",
-        element: <LogIn/> 
+        element: <LogIn serWebState={()=>setWebState}/> 
       }
 
     ]
@@ -43,7 +52,8 @@ function App() {
 
   return (
     <div>
-      <RouterProvider router={router}/>
+      {!user&& <LogIn serWebState={()=>setWebState}/>}
+      {user && <RouterProvider router={router}/>}
     </div>
   )
 }

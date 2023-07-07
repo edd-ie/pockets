@@ -5,7 +5,7 @@
     height: 100%;
     margin: 0;
     padding: 0;
-    background: linear-gradient(#2c0000, #5e0707);
+    background: linear-gradient(#000000, #5e0707, #000000);
     display: flex;
     flex-direction: column;
     overflow: hidden;
@@ -22,27 +22,125 @@
 
 #eLogo{
     position: relative;
-    height: 100%;
+    height: 90%;
     width: 10%;
-    background: white;
+    /* background: white; */
     margin: 0;
+    text-align: center;
+    font-family:Arial, Helvetica, sans-serif;
+    font-size: small;
+    cursor: pointer;
+}
+
+#eLogo h1{
+    position: relative;
+    margin: 0;
+    margin-top: 8%;
+    color: rgb(231, 227, 227);
+}
+#eLogo h1:hover{
+    color: rgb(255, 10, 10);
+}
+#eLogo h1 span{
+    position: relative;
+    margin: 0;
+    color: rgb(255, 10, 10);
+}
+
+#eLogo h1 span:hover {
+    color: rgb(231, 227, 227);
 }
 
 #eRoutes{
     position: relative;
-    background: white;
     height: 100%;
     width: 80%;
     margin: 0;
+    display: flex;
+    padding: 0px;
+    flex-direction: row;
+    justify-content: space-evenly;
+    color: solid rgb(255, 251, 251);
+    gap: -9px;
+}
+
+
+.eDashRoute{
+    position: relative;
+    height: 60%;
+    width: 90px;
+    text-align: center;
+    padding: 0;
+    margin-bottom: 10%;
+}
+
+.eDashRoute h2{
+    position: relative;
+    border-bottom: 0.8px solid rgb(128, 128, 128);
+    border-radius: 8px;
+    width: 122%;
+    padding-top: 0%;
+    margin-top: 24%;
+    color: #fcfcfc;
+}
+
+.eDashRoute h2:hover{
+    color: #d8d3d3;
+    border-top: 0.9px solid rgb(99, 97, 97);
+    border-bottom:navy;
 }
 
 #eProfile{
     position: relative;
-    background: white;
-    height: 100%;
-    width: 5%;
+    background-color: rgba(255, 255, 255, 0.418);
+    background-image: url('./images/prof.png');
+    background-repeat: no-repeat;
+    background-size: contain;
+    height: 55%;
+    width: 3%;
     margin: 0;
     border-radius: 50%;
+    text-align: center;
+    margin-right: 1%;
+    color: rgb(161, 161, 161);
+    cursor: pointer;
+    margin-top: 0.9%;
+    border: 5px sold #d8d3d3;
+}
+
+#eProfile:hover{
+    background-color: rgb(255, 255, 255);
+    background-image: url('./images/prof.png');
+}
+
+#ePdetails{
+    position: absolute;
+    height: 12%;
+    width: 9%;
+    background: rgba(197, 192, 192, 0.541);
+    top: 1%;
+    left: 90%;
+    margin: 0;
+    border-radius: 16px;
+    justify-content: space-around;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    cursor: pointer;
+}
+
+#ePdetails div{
+    position: relative;
+    width: 75%;
+    height: 30%;
+    text-align: center;
+    border-radius: 5px;
+    border: none;
+    background: rgba(255, 255, 255, 0.479);
+}
+
+#ePLogout:hover{
+    background: rgba(252, 4, 4, 0.753);
 }
 
 #eMain{
@@ -59,7 +157,7 @@
     border: 1px solid black;
     position: relative;
     height: 98%;
-    width: 7%;
+    width: 8%;
     border-radius: 15px;
     background: rgba(119, 119, 119, 0.418);
     display: flex;
@@ -70,20 +168,56 @@
 
 .eTabs{
     position: relative;
-    width: 82%;
+    width: 80%;
     height: 12%;
     background: rgb(21, 27, 32);
-    margin-top: 8%;
+    margin-top: 10%;
     border-radius: 20px;
     color: white;
     text-align: center;
     cursor: pointer;
 }
 
+.eTabLong {
+    position: relative;
+    width: 80%;
+    height: 40%;
+    background: rgb(21, 27, 32);
+    margin-top: 10%;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: center;
+}
+
 .eIconsTab{
     position: relative;
-    font-size: 50px;
-    margin-top: 12%;
+    font-size: 45px;
+    margin-top: 18%;
+}
+
+.eLongDate{
+    margin-top: 15%;
+    padding-top: 13%;
+    border-top: 4px solid white;
+    width: 80%;
+}
+
+#eTabTime{
+    background: rgb(21, 27, 32);
+    width: 80%;
+    margin-top: 13%;
+    border-radius: 20px;
+    color: white;
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    cursor: pointer;
+    align-items: center;
+    height: 25%;
 }
 
 .eTabs:hover{
