@@ -37,12 +37,17 @@ export default function Dashboard({user}) {
         })
     }
 
+    let [showProf, setShowProf] = React.useState(false)
+    function handleProf(){
+        setShowProf(!showProf)
+    }
+
 
     return (
         <div id='eDashboard'>
             <div id='eHeader'>
                 <div id='eLogo'>
-                    <h1>Poc<span>KetS</span></h1>
+                    <h1>POC<span>KETS</span></h1>
                 </div>
                 <div id='eRoutes'>
                     <Link to='/cards'>
@@ -55,14 +60,10 @@ export default function Dashboard({user}) {
                         <div className='eDashRoute'><h2>Saving</h2></div>
                     </Link>
                 </div>
-                <div id='eProfile'>
-                    <Link to='/login'>
-                        <span className="material-symbols-sharp">
-                        logout
-                        </span>
-                     </Link>
-                </div>
+                {!showProf&&<div id='eProfile' onClick={handleProf}></div>}
+                
             </div>
+            
 
             {/* Dashboard main content */}
             <div id='eMain'>
@@ -113,6 +114,16 @@ export default function Dashboard({user}) {
                     </div>
                 </div>
             </div>
+            {showProf&&(
+                    <div id='ePdetails'>
+                        <div onClick={handleProf}>{simBalance.length ==0? 'User':simBalance[0].username}</div>
+                        <div onClick={handleProf} id='ePLogout'>
+                            <Link to='/login'>
+                                logout
+                            </Link>
+                        </div>
+                    </div>
+                )}
         </div>
     );
 }
