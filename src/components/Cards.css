@@ -119,20 +119,64 @@
   box-shadow: 0 0 10px black;
   max-width: 400px;
   width: 80%;
+  text-align: left;
+  height: 60%;
+  justify-content: space-evenly;
+  display: flex;
+  flex-direction: column;
 }
 
 .gModal h3 {
   margin: 0 0 10px;
+  text-align: center;
+  color: black;
+  text-decoration: underline;
 }
 
 .gModal ul {
   list-style-type: none;
   padding: 0;
   margin: 0 0 10px;
+  margin-left: 35%;
+  color: white;
 }
 
 .gModal li {
   margin-bottom: 5px;
+}
+
+.gModal form{
+  position: relative;
+  width: 87%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-evenly;
+  align-items: center;
+  gap: 5%;
+  height: 15%;
+  align-self: center;
+}
+
+.gModal form div{
+  justify-content: space-evenly;
+  position: relative;
+  display: flex;
+  width: 100%;
+  gap: -10%; 
+  
+}
+
+.gModal form div input{
+  border-radius: 7px;
+  text-align: center;
+}
+
+#gModal-btns{
+  
+  display: flex;
+  justify-content: center;
+  gap: 20px;
+  margin-top: 2%;
 }
 
 #gHead-title{

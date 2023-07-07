@@ -266,6 +266,7 @@ const Cards = () => {
               )}
               <form onSubmit={handleAddTransaction}>
                 <div>
+                <div>
                   <input
                     type="text"
                     placeholder="Category"
@@ -293,11 +294,17 @@ const Cards = () => {
                     }
                   />
                 </div>
-                <button type="submit">Add Transaction</button>
+                </div>
+                <div>
+                  <button type="submit">Add Transaction</button>
+                </div>
               </form>
         
+              <div id='gModal-btns'>
+
               <button onClick={() => handleRemoveCard(selectedTransaction.id)}>Delete Card</button>
               <button onClick={() => setSelectedTransaction(null)}>Close</button>
+              </div>
             </div>
           </div>
         )}
