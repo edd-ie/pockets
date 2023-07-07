@@ -3,12 +3,18 @@ import './Dashboard.css'
 import DashPie from './Dashpie';
 import DashCalender from './DashCal';
 import DashVol from './DashVol';
+import { Link } from 'react-router-dom';
 
 export default function Dashboard({user}) {
     const [catData, setCatData] = React.useState([])
     const [simBalance, setSimBalance] = React.useState([])
     const [valTab, setValTab] = React.useState('Sim')
     const [choice, setChoice] = React.useState('sim')
+
+    const date = new Date().toLocaleDateString('en-US')
+    const day = new Date().toLocaleDateString('en-US', { weekday: 'long' })
+    const month = new Date().toLocaleDateString('en-US', { month: 'long' })
+    console.log(date, day, month)
 
     useEffect(() => {
         fetch(`https://pockets.onrender.com/u${valTab}Bal/${user}`)
@@ -35,9 +41,27 @@ export default function Dashboard({user}) {
     return (
         <div id='eDashboard'>
             <div id='eHeader'>
-                <div id='eLogo'></div>
-                <div id='eRoutes'></div>
-                <div id='eProfile'></div>
+                <div id='eLogo'>
+                    <h1>Poc<span>KetS</span></h1>
+                </div>
+                <div id='eRoutes'>
+                    <Link to='/cards'>
+                        <div className='eDashRoute'><h2>Cards</h2></div>
+                    </Link>
+                    <Link to='/sims'>
+                        <div className='eDashRoute'><h2>Sims</h2></div>
+                    </Link>
+                    <Link to='/'>
+                        <div className='eDashRoute'><h2>Saving</h2></div>
+                    </Link>
+                </div>
+                <div id='eProfile'>
+                    <Link to='/login'>
+                        <span className="material-symbols-sharp">
+                        logout
+                        </span>
+                     </Link>
+                </div>
             </div>
 
             {/* Dashboard main content */}
@@ -52,6 +76,20 @@ export default function Dashboard({user}) {
                         <span className="material-symbols-sharp eIconsTab">
                         credit_card
                         </span>
+                    </div>
+                    <div className='eTabLong'>
+                        <span className="material-symbols-sharp eIconsTab">
+                        calendar_month
+                        </span>
+                        <div className='eLongDate'>{day}</div>
+                        <div className='eLongDate'>{month}</div>
+                        <div className='eLongDate'>{date}</div>
+                    </div>
+                    <div id='eTabTime'>
+                        <span className="material-symbols-sharp eIconsTab">
+                        schedule
+                        </span>
+                        <div className='eLongDate'>23:69</div>
                     </div>
                 </div>
 
