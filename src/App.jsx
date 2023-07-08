@@ -12,19 +12,26 @@ import LogIn from './components/Login';
 function App() {
   const [userId, setUserId] = useState(1);
   const [user, setUser] = useState([]);
+  console.log("file: App.jsx:15 -> App -> user:", user['id']);
+  const [isLoggedIn, setIsLoggedIn] = useState(false);
+  console.log("file: App.jsx:16 -> App -> isLoggedIn:", isLoggedIn);
 
   useEffect(() => {
     fetch("https://pockets.onrender.com/me")
     .then(res => res.json())
     .then(data => {
-      console.log("file: App.jsx:20 -> useEffect -> data:", data);
-      setUserId(data.id)})
+      if (data.length > 0){
+        setUser(data)
+        setIsLoggedIn(true)
+        setUserId(data['id'])
+      }
+    })    
   },[])
 
   const router = createBrowserRouter([
       {
         path: "/",
-        element:<Dashboard user={userId}/>
+        element: <Dashboard user={userId} onLogOff={(e)=>setUser(e)} setIsLoggedIn={(e)=>setIsLoggedIn(e)}/>
       },
       {
         path: "/sims",
@@ -40,22 +47,23 @@ function App() {
       },
       {
         path: "/signUp",
-        element: <SignUp/> 
+        element: <SignUp user={()=>setUser} webState={()=>setIsLoggedIn}/> 
       },
       {
-        path: "/logIn",
-        element: <LogIn serWebState={()=>setWebState}/> 
+        path: "/login",
+        element: <LogIn setUserData={(e)=>setUser(e)} webState={(e)=>setIsLoggedIn(e)}/>
       }
-
     ]
   );
 
-  return (
-    <div>
-      {!user&& <LogIn serWebState={()=>setWebState}/>}
-      {user && <RouterProvider router={router}/>}
-    </div>
-  )
+  
+  if (user.length > 0||isLoggedIn){
+    return (<RouterProvider router={router}/> )
+  
+  }
+  else{
+    return (<LogIn setUserData={(e)=>setUser(e)} webState={(e)=>setIsLoggedIn(e)}/>)
+  }
 }
 
 export default App
