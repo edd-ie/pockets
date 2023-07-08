@@ -3,13 +3,15 @@ import './Dashboard.css'
 import DashPie from './Dashpie';
 import DashCalender from './DashCal';
 import DashVol from './DashVol';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function Dashboard({user}) {
     const [catData, setCatData] = React.useState([])
     const [simBalance, setSimBalance] = React.useState([])
     const [valTab, setValTab] = React.useState('Sim')
     const [choice, setChoice] = React.useState('sim')
+
+    const navigate = useNavigate();
 
     const date = new Date().toLocaleDateString('en-US')
     const day = new Date().toLocaleDateString('en-US', { weekday: 'long' })
@@ -35,6 +37,10 @@ export default function Dashboard({user}) {
             setSimBalance(data)
             setChoice(value.toLowerCase())
         })
+    }
+
+    function handleLogOff(){
+        navigate("/login")
     }
 
     let [showProf, setShowProf] = React.useState(false)
@@ -117,10 +123,8 @@ export default function Dashboard({user}) {
             {showProf&&(
                     <div id='ePdetails'>
                         <div onClick={handleProf}>{simBalance.length ==0? 'User':simBalance[0].username}</div>
-                        <div onClick={handleProf} id='ePLogout'>
-                            <Link to='/login'>
-                                logout
-                            </Link>
+                        <div onClick={()=>{handleProf(); handleLogOff()}}  id='ePLogout'>
+                            logout
                         </div>
                     </div>
                 )}

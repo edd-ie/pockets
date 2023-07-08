@@ -1,7 +1,14 @@
 import React from 'react';
 import './Signup.css'
+import { Link, useNavigate } from 'react-router-dom';
 
 export default function SignUp() {
+
+    const navigate = useNavigate();
+
+    function handleLogOff(){
+        navigate("/subscription")
+    }
 
     return(
         <div id='eSignPage'>
@@ -15,7 +22,7 @@ export default function SignUp() {
                         <input className='eInput' type="email" placeholder='Email' required/>
                         <input className='eInput' type="password" placeholder='Password' required/>
                         <input className='eInput' type="password" placeholder='Confirm Password' required/>
-                        <input className='eInput' id='eSignBtn' type="submit" value="Sign Up"/>
+                        <input className='eInput' id='eSignBtn' type="submit" value="Sign Up" onClick={handleLogOff}/>
                         <p id='eSignTxt'>A journey to financial Freedom</p>
                     </form>
                 </div>
