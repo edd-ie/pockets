@@ -1,13 +1,40 @@
 import React from 'react';
 import './Signup.css'
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
 
-export default function SignUp() {
+export default function SignUp({webState, user}) {
 
-    const navigate = useNavigate();
+    function handleSignUp(e){
+        e.preventDefault();
+        let form = e.target;
+        let name = e.target.elements[0].value;
+        let mail  = e.target.elements[1].value;
+        let pass = e.target.elements[2].value;
+        let confirmPassword = e.target.elements[3].value;
 
-    function handleLogOff(){
-        navigate("/subscription")
+        let credentials = {
+            username: name,
+            email: mail,
+            password: pass,
+            password_confirmation: confirmPassword,
+            subscription: "basic"
+        }
+
+        fetch("https://pockets.onrender.com/signup", {
+        method: "POST",
+        headers: {
+            "Content-Type": "application/json",
+        },
+        body: JSON.stringify(credentials),
+        })
+        .then((r) => r.json())
+        .then(data=>{
+            webState(true)
+            user(data)
+        });
+
+        form.reset()
+
     }
 
     return(
@@ -17,12 +44,12 @@ export default function SignUp() {
                 <div className='eSign' id='eSign2'>
                     <h1 >Sign Up</h1>
                     <h4 id='eSignH3'>Create an account to get started...</h4>
-                    <form action="submit" id='eSignForm'>
+                    <form action="submit" id='eSignForm' onSubmit={handleSignUp}>
                         <input className='eInput' type="text" placeholder='User Name' required/>
                         <input className='eInput' type="email" placeholder='Email' required/>
                         <input className='eInput' type="password" placeholder='Password' required/>
                         <input className='eInput' type="password" placeholder='Confirm Password' required/>
-                        <input className='eInput' id='eSignBtn' type="submit" value="Sign Up" onClick={handleLogOff}/>
+                        <input className='eInput' id='eSignBtn' type="submit" value="Sign Up"/>
                         <p id='eSignTxt'>A journey to financial Freedom</p>
                     </form>
                 </div>

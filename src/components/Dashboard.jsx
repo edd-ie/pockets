@@ -5,13 +5,13 @@ import DashCalender from './DashCal';
 import DashVol from './DashVol';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function Dashboard({user}) {
+export default function Dashboard({user, onLogOff, setIsLoggedIn}) {
     const [catData, setCatData] = React.useState([])
     const [simBalance, setSimBalance] = React.useState([])
     const [valTab, setValTab] = React.useState('Sim')
     const [choice, setChoice] = React.useState('sim')
 
-    const navigate = useNavigate();
+    const navigate = useNavigate()
 
     const date = new Date().toLocaleDateString('en-US')
     const day = new Date().toLocaleDateString('en-US', { weekday: 'long' })
@@ -40,7 +40,12 @@ export default function Dashboard({user}) {
     }
 
     function handleLogOff(){
-        navigate("/login")
+        fetch("https://pockets.onrender.com/logout", {
+            method: "DELETE"
+        })
+        .then(() => {onLogOff([]) 
+            setIsLoggedIn(false)
+        });
     }
 
     let [showProf, setShowProf] = React.useState(false)
