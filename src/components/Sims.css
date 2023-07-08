@@ -56,19 +56,15 @@
 }
 
 #sim2{
-  background-image: url(src/components/images/Airtel.PNG);
-  /* background-size: cover; */
-  background-repeat: no-repeat;
-  background-size: contain;
+  background-image: url(src/components/images/Airtel2.jpg);
 }
 
 #sim3{
   background-image: url(src/components/images/Safaricom.PNG);
-  background-size: contain;
 }
 
-#sim4{
-}
+/* #sim4{
+} */
 
 .gSim:hover::before {
   content: '';
