@@ -70,10 +70,13 @@ const Sims = () => {
   const handleRemoveSim = (simId) => {
     // Remove the selected Sim from the transactions
     const updatedTransactions = transactions.filter((sim) => sim.id !== simId);
-
+  
     // Update the transactions state
     setTransactions(updatedTransactions);
-
+  
+    // Close the modal by resetting the selectedTransaction state
+    setSelectedTransaction(null);
+  
     // Make an API request to delete the Sim from the backend
     fetch(`https://pockets.onrender.com/sims/${simId}`, {
       method: 'DELETE',
@@ -88,7 +91,7 @@ const Sims = () => {
         console.error('Error deleting Sim:', error);
       });
   };
-
+  
   const handleSimClick = (transaction) => {
     setSelectedTransaction(transaction);
   };
@@ -151,14 +154,17 @@ const Sims = () => {
     setShowDropdown((prevState) => !prevState);
   };
 
+  const categoryOptions = ['food', 'clothes', 'electronics', 'household', 'other', 'transport', 'health', 'education', 'entertainment'];
+
   return (
-    <div className="gHead">
+    <div className="gSimsHome">
       <Link to='/'>
         <div id='mainLogo'>
-          <h1>Poc<span>KetS</span></h1>
+          <h1>POC<span>KETS</span></h1>
         </div>
       </Link>
-      <h1>Sims</h1>
+      <div className="gHead">
+      <h1 id ='gHead-title'>Sims</h1>
       <div className="gSims-container">
         {transactions && transactions.length > 0 ? (
           transactions.map((transaction, index) => (
@@ -174,12 +180,12 @@ const Sims = () => {
           <p>No transactions available</p>
         )}
 
-        <div className="gDropdown">
-          <button onClick={toggleDropdown}>Sim Details</button>
+      <div className="gDropdown">
+        {!showDropdown &&<button id='gBTN' onClick={toggleDropdown}>Add Sim</button>}
           {showDropdown && (
             <div className="gDropdown-content">
               <div className="sim-details">
-                <h2>Sim Details</h2>
+                <h2 id = 'gDetails-title'>Sim Details</h2>
                 <p>Sim Number: {newSim.simNumber ? newSim.simNumber : 'N/A'}</p>
                 <p>Balance: {newSim.balance ? newSim.balance : 'N/A'}</p>
                 <p>Category: {newSim.category ? newSim.category : 'N/A'}</p>
@@ -208,14 +214,19 @@ const Sims = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Category"
+                  <div id ='gCategoryDropDown'>
+                    <select
                       name="category"
                       value={newSim.category}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="">Select a category</option>
+                      {categoryOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
                   </div>
                   <div>
                     <input
@@ -227,7 +238,7 @@ const Sims = () => {
                     />
                   </div>
                   <button
-                  type="submit">Add Sim</button>
+                  type="submit" onClick={toggleDropdown}>Add Sim</button>
                 </form>
               </div>
             </div>
@@ -281,8 +292,10 @@ const Sims = () => {
                 </div>
                 <button type="submit">Add Transaction</button>
               </form>
+              <div id='gModal-btns'>
               <button onClick={() => handleRemoveSim(selectedTransaction.id)}>Delete Sim</button>
               <button onClick={() => setSelectedTransaction(null)}>Close</button>
+              </div>
             </div>
           </div>
         )}
@@ -297,6 +310,13 @@ const Sims = () => {
           />
         </div>
       )}
+    </div>
+    <div id='gHelp'>
+      <span class="material-symbols-sharp">
+        info
+      </span>
+      <p>Click on a Sim to view/add transactions</p>
+    </div>
     </div>
   );
 }

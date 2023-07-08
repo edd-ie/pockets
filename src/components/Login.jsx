@@ -1,13 +1,9 @@
 import React, { useState } from 'react';
 import './Login.css';
-import { Link,useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 
-const Login = ({setWebState}) => {
-  const [userData, setUserData] = useState([])
-  const [loggedIn, setLoggedIn] = useState(false)
-  
-  const navigate = useNavigate();
+const Login = ({setUserData, webState}) => {
 
   function handleLogin(e) {
     e.preventDefault();
@@ -15,16 +11,22 @@ const Login = ({setWebState}) => {
     let mail = e.target.elements[0].value;
     let pass = e.target.elements[1].value;
 
-    fetch("https://pockets.onrender.com//login",{
+    let credentials = {"email": mail, "password": pass}
+
+    fetch("https://pockets.onrender.com/login",{
       method: "POST",
       headers: {'Content-Type': 'application/json'},
-      body: JSON.stringify({"email": mail, "password": pass})
-    }).then(res=>res.json())
-    .then(data=>{setUserData(data);
-      setLoggedIn(true);
-      data ? navigate("/") :0
-      setWebState(loggedIn)}
-    )
+      body: JSON.stringify(credentials)
+    }).then(res=>{
+      if (res.ok){
+        return res.json().then(data=>{
+          console.log('Login data:',data)
+          setUserData(data) 
+          webState(true)
+        })
+      }
+    }) 
+    
     form.reset()
   }
 
@@ -35,12 +37,6 @@ const Login = ({setWebState}) => {
           <div className='gLog' id='gLog1'></div>
           <div className='gLog' id='gLog2'>
             <h2>Log in to Pockets</h2>
-            {loggedIn ? (
-              <p>You are already logged in.</p>
-            ) :  
-            (
-              <>
-                {/* {message && <p>{message}</p>} */}
                 <form onSubmit={handleLogin}>
                   <div>
                     <input
@@ -58,15 +54,11 @@ const Login = ({setWebState}) => {
                       required
                     />
                   </div>
-                    <button type="submit">Log In</button>
+                  <button type="submit">Log In</button>
                 </form>
-                <p id='gLogInTxt2'>
-                <Link to="/Signup">
-                  Sign up to Pockets
-                </Link>
-                </p>
-              </>
-            )}
+                  <p id='gLogInTxt2'>
+                    Sign up to Pockets
+                  </p>
           </div>
         </div>
       </div>
