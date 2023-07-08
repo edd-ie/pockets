@@ -167,7 +167,7 @@ const Cards = () => {
       <div className="gCards-container">
         {transactions && transactions.length > 0 ? (
           transactions.map((transaction, index) => (
-            <div
+            <div id={'card'+(index +1)}
               className="gCard"
               key={index}
               onClick={() => handleCardClick(transaction)}
@@ -294,14 +294,10 @@ const Cards = () => {
                     }
                   />
                 </div>
-                </div>
-                <div>
                   <button type="submit">Add Transaction</button>
                 </div>
               </form>
-        
               <div id='gModal-btns'>
-
               <button onClick={() => handleRemoveCard(selectedTransaction.id)}>Delete Card</button>
               <button onClick={() => setSelectedTransaction(null)}>Close</button>
               </div>
