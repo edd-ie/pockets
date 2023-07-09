@@ -7,7 +7,7 @@ const Sims = ({userID}) => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newSim, setNewSim] = useState({
-    user_id: '',
+    user_id: userID,
     simName: '',
     balance: '',
     name: '',
@@ -124,13 +124,19 @@ const handleInputChange = (event) => {
   const handleAddSim = (event) => {
     event.preventDefault();
   
+    const simData = {
+      ...newSim,
+      name: newSim.simName,
+      user_id: userID,
+      balance: parseInt(newSim.balance),
+    };
     // Make an API request to add the new Sim to the backend
     fetch('https://pockets.onrender.com/sims', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
       },
-      body: JSON.stringify(newSim),
+      body: JSON.stringify(simData),
     })
       .then((response) => response.json())
       .then((data) => {
@@ -142,7 +148,7 @@ const handleInputChange = (event) => {
   
         // Reset the newSim state
         setNewSim({
-          user_id: '',
+          user_id: userID,
           name: '',
           balance: '',
           simName: '',
@@ -192,7 +198,7 @@ const handleInputChange = (event) => {
             <div className="gDropdown-content">
               <div className="sim-details">
                 <h2 id = 'gDetails-title'>Sim Details</h2>
-                <p>User_id: {newSim.user_id ? newSim.user_id : 'N/A'}</p>
+                {/* <p>User_id: {newSim.user_id ? newSim.user_id : 'N/A'}</p> */}
                 <p>Name: {newSim.simName ? newSim.simName : 'N/A'}</p>
                 <p>Sim: {newSim.name ? newSim.name : 'N/A'}</p>
                 <p>Balance: {newSim.balance ? newSim.balance : 'N/A'}</p>
@@ -201,7 +207,7 @@ const handleInputChange = (event) => {
                 <div className="gSim-form">
                   <h3>Add New Sim</h3>
                   <form onSubmit={handleAddSim}>
-                  <div>
+                  {/* <div>
                       <input
                         type="text"
                         placeholder="User_id"
@@ -209,7 +215,7 @@ const handleInputChange = (event) => {
                         value={newSim.user_id}
                         onChange={handleInputChange}
                       />
-                    </div>
+                    </div> */}
                   <div>
                       <input
                         type="text"
@@ -313,6 +319,7 @@ const handleInputChange = (event) => {
       {showTransactionTable && (
         <div className="gTransaction-table">
           <SimTransactionTable
+            userID={userID}
             transactions={transactions}
             handleRemoveSim={handleRemoveSim}
             handleGoBack={handleGoBack}
