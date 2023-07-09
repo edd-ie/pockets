@@ -100,6 +100,19 @@
   font-size: 16px;
 }
 
+#card1{
+  background-image: url('./images/Coop.PNG');
+}
+
+#card2{
+  background-image: url('./images/Barclays.PNG');
+}
+
+
+#card3{
+  background-image: url('./images/Equity.PNG');
+}
+
 .gTransaction-details {
   position: fixed;
   top: 0;
@@ -115,7 +128,7 @@
 
 .gModal {
   background-color: #485855;
-  padding: 20px;
+  padding: 40px;
   border-radius: 4px;
   box-shadow: 0 0 10px black;
   max-width: 400px;
@@ -268,4 +281,14 @@
 #gHelp p{
   padding: 0;
   margin: 0;
+}
+
+
+#gAmount {
+  padding: 10px;
+}
+
+#gCategoryDropDown {
+  width: 500px;
+  justify-content: center;
 }
