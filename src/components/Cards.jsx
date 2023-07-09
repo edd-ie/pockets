@@ -7,6 +7,7 @@ const Cards = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newCard, setNewCard] = useState({
+    user_id: '',
     name: '',
     balance: '',
     bank: '',
@@ -30,7 +31,6 @@ const Cards = () => {
   const handleAddTransaction = (event) => {
     event.preventDefault();
 
-    
     const updatedTransactions = [...transactions];
     const selectedCardIndex = updatedTransactions.findIndex(
       (card) => card.id === selectedTransaction.id
@@ -39,7 +39,6 @@ const Cards = () => {
 
     setTransactions(updatedTransactions);
 
-    
     fetch(`https://pockets.onrender.com/cards/${selectedTransaction.id}`, {
       method: 'PUT',
       headers: {
@@ -55,7 +54,6 @@ const Cards = () => {
         console.error('Error adding transaction:', error);
       });
 
-  
     setNewTransaction({
       category: '',
       amount: 0,
@@ -64,11 +62,9 @@ const Cards = () => {
 
   const handleRemoveCard = (cardId) => {
     const updatedTransactions = transactions.filter((card) => card.id !== cardId);
-
-    
+  
     setTransactions(updatedTransactions);
-
-    
+  
     fetch(`https://pockets.onrender.com/cards/${cardId}`, {
       method: 'DELETE',
     })
@@ -79,12 +75,15 @@ const Cards = () => {
       .catch((error) => {
         console.error('Error deleting card:', error);
       });
+  
+    setSelectedTransaction(null); // Close the modal by setting selectedTransaction to null
   };
+  
+
 
   const handleCardClick = (transaction) => {
     setSelectedTransaction(transaction);
   };
-
 
   const handleGoBack = () => {
     setShowTransactionTable(false);
@@ -97,12 +96,10 @@ const Cards = () => {
       [name]: value,
     }));
   };
-  
 
   const handleAddCard = (event) => {
     event.preventDefault();
 
-   
     fetch('https://pockets.onrender.com/cards', {
       method: 'POST',
       headers: {
@@ -117,23 +114,22 @@ const Cards = () => {
         setTransactions((prevState) => [...prevState, data]);
 
         setNewCard({
+          user_id:'',
           name: '',
           balance: '',
           bank: '',
         });
       })
       .catch((error) => {
-        // Handle any errors
         console.error('Error adding Card:', error);
       });
   };
-
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
   };
 
-  
+  const bankOptions = ['Kcb', 'Equity', 'Coop', 'Barclays'];
 
   return (
     <div id='gCardsHome'>
@@ -166,47 +162,61 @@ const Cards = () => {
             )}
             {showDropdown && (
               <div className="gDropdown-content">
-              <div className="card-details">
-                <h2>Card Details</h2>
-                <p>Name: {newCard.name ? newCard.name : 'N/A'}</p>
-                <p>Balance: {newCard.balance ? newCard.balance : 'N/A'}</p>
-                <p>Bank: {newCard.bank ? newCard.bank : 'N/A'}</p>
-              </div>
-
-              <div className="gCard-form">
-                <h3>Add New Card</h3>
-                <form onSubmit={handleAddCard}>
+                <div className="card-details">
+                  <h2>Card Details</h2>
+                  <p>User_id: {newCard.user_id ? newCard.user_id : 'N/A'}</p>
+                  <p>Name: {newCard.name ? newCard.name : 'N/A'}</p>
+                  <p>Balance: {newCard.balance ? newCard.balance : 'N/A'}</p>
+                  <p>Bank: {newCard.bank ? newCard.bank : 'N/A'}</p>
+                </div>
+                <div className="gCard-form">
+                  <h3>Add New Card</h3>
+                  <form onSubmit={handleAddCard}>
                   <div>
-                    <input
-                      type="text"
-                      placeholder="Name"
-                      name="name"
-                      value={newCard.name}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Balance"
-                      name="balance"
-                      value={newCard.balance}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Bank"
+                      <input
+                        type="text"
+                        placeholder="User_id"
+                        name="user_id"
+                        value={newCard.user_id}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        name="name"
+                        value={newCard.name}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Balance"
+                        name="balance"
+                        value={newCard.balance}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div id ='gBankDropDown'>
+                    <select
                       name="bank"
                       value={newCard.bank}
                       onChange={handleInputChange}
-                    />
+                    >
+                      <option value="">Select a bank</option>
+                      {bankOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
                   </div>
-                  <button type="submit">Add Card</button>
-                </form>
+                    <button type="submit">Add Card</button>
+                  </form>
+                </div>
               </div>
-            </div>
             )}
           </div>
 
@@ -215,7 +225,7 @@ const Cards = () => {
               <div className="gModal">
                 <h3>Transaction Details</h3>
                 {selectedTransaction.cardTransactions &&
-                selectedTransaction.cardTransactions.length > 0 ? (
+                  selectedTransaction.cardTransactions.length > 0 ? (
                   <ul>
                     {selectedTransaction.cardTransactions.map((transaction, index) => (
                       <li key={index}>
