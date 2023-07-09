@@ -1,77 +1,233 @@
-.accordion-header {
-    background-color: #f1f1f1;
-    padding: 10px;
-    cursor: pointer;
-  }
-  
-  .accordion-header h3 {
-    margin: 0;
-  }
-  
-  .accordion-content {
-    padding: 10px;
-    display: none;
-  }
-  
-  .accordion-content p {
-    margin: 0;
-  }
-  
-  .accordion-header.expanded {
-    background-color: #ccc;
-  }
-  
-  .accordion-content.expanded {
-    display: block;
-  }
+#eSavingsMain{
+  position: absolute;
+  top: 0;
+  left: 0;
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+}
 
-  .savings-container {
-    max-width: 600px;
-    margin: 0 auto;
-    padding: 20px;
-  }
-  
-  .savings-container h2 {
-    margin-bottom: 20px;
-  }
-  
-  .savings-form {
-    margin-bottom: 20px;
-  }
-  
-  .savings-form input[type="text"] {
-    width: 100%;
-    padding: 10px;
-    margin-bottom: 10px;
-    border: 1px solid #ccc;
-    border-radius: 4px;
-  }
-  
-  .savings-form button {
-    padding: 10px 20px;
-    background-color: #161a1b;
-    color: #fff;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-  }
-  
-  .savings-form button:hover {
-    background-color: #30383a;
-  }
-  
-  .savings-item {
-    background-color: #f1f1f1;
-    padding: 10px;
-    margin-bottom: 10px;
-    border-radius: 4px;
-  }
-  
-  .savings-item h3 {
-    margin-top: 0;
-  }
-  
-  .savings-item p {
-    margin-bottom: 5px;
-  }
-  
+
+#eSavingsContent{
+  position: absolute;
+  width: 90%;
+  height: 53%;
+  top: 15%;
+  left: 5%;
+  display: flex;
+  overflow-x: scroll;
+  justify-content: center;
+}
+
+/* width */
+::-webkit-scrollbar {
+  width: 10px;
+}
+
+/* Track */
+::-webkit-scrollbar-track {
+  box-shadow: inset 0 0 5px rgba(128, 128, 128, 0.164);
+  border-radius: 10px;
+}
+
+/* Handle */
+::-webkit-scrollbar-thumb {
+  background: rgb(0, 238, 255);
+  border-radius: 15px;
+}
+
+.eSavings{
+  border: 1px solid black;
+  margin-left: 4%;
+  margin-right: 1%;
+  width: 19%;
+  background: white;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  height: 95%;
+  border-radius: 15px;
+  box-shadow: 9px 9px 2px rgba(173, 216, 230, 0.61);
+}
+
+.eSaveDetails{
+  text-align: center;
+  margin: 0;
+}
+
+.eSaveDetails,  .eSaveDetails h2{
+  padding: 0;
+  border-bottom: 1px solid black;
+}
+
+.eSaveDetails h2{
+  margin: 0;
+  margin-bottom: 1;
+}
+
+.eSaveDetails p{
+  text-align: left;
+}
+
+.eSaveDetails p span{
+  font-weight: bold;
+}
+
+.eSaveOptions{
+  width: 90%;
+  margin: 0;
+  display: flex;
+  justify-content: space-evenly;
+  height: 10%;
+  padding: 0;
+}
+
+.eSaveEdit{
+  border: 0.1px solid black;
+  height: 100%;
+  width: 42%;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-around;
+  align-items: center;
+  background: lightblue;
+  border-radius: 8px;
+  cursor: pointer;
+}
+
+.eSaveEdit:hover{
+  background: rgb(243, 41, 41);
+  color: white;
+}
+#eSaveUP:hover{
+  background: rgb(41, 243, 41);
+  color: black;
+}
+
+
+#eSavingsAdd{
+  position: absolute;
+  right: 10%;
+  bottom: 15%;
+  width: 8%;
+  height: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(71, 71, 71);
+  color: white;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+#eSavingsAdd:hover{
+  background: rgb(38, 196, 38);
+  color: black;
+}
+#eSavingsNew{
+  position: absolute;
+  right: 20%;
+  bottom: 15%;
+  width: 8%;
+  height: 6%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  background: rgb(71, 71, 71);
+  color: white;
+  border-radius: 9px;
+  cursor: pointer;
+}
+
+#eSavingsNew:hover{
+  background: rgb(38, 196, 38);
+  color: black;
+}
+
+#eSavingsTitle{
+  position: absolute;
+  top: 1%;
+  left: 45%;
+  border-bottom: 3px solid rgba(255, 255, 255, 0.397);
+  color: white;
+}
+
+
+.eNewSave{
+  position: absolute;
+  height: 100vh;
+  width: 100vw;
+  background: rgba(0, 0, 0, 0.671);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+}
+
+.eNewSaveContent{
+  position: relative;
+  width: 50%;
+  height: 85%;
+  background: white;
+  border: 1px solid black;
+  border-radius: 30px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-evenly;
+}
+
+.eNewSaveHeader{
+  width: 90%;
+  display: flex;
+  justify-content: center;
+}
+
+.eNewSaveHeader h1{
+  border-bottom: 2px solid black;
+}
+
+.eNewSaveBody{
+  width: 90%;
+  height: 80%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.eNewSaveForm{
+  border: 1px solid black;
+  height: 70%;
+  padding: 10%;
+  display: flex;
+  flex-direction: column;
+  width: 60%;
+  justify-content: space-evenly;
+  align-items: center;
+  border-radius: 15px;
+  background: rgba(46, 46, 46, 0.432);
+}
+
+.eNewSaveForm *{
+  width: 95%;
+  height: 14%;
+  text-align: center;
+  font-size: large;
+  border-radius: 15px;
+  border: none;
+}
+
+.eNewSaveForm button{
+  width: 50%;
+  font-weight: bold;
+}
+
+.eNewSaveForm button:hover {
+  background: rgb(35, 240, 35);
+  color: white;
+}

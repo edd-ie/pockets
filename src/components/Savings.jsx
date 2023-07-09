@@ -1,170 +1,320 @@
-import React, { useState, useEffect } from 'react';
+import React, { useEffect } from 'react';
+import { Link } from 'react-router-dom';
 import './Savings.css';
 
-function Savings() {
-  const [savings, setSavings] = useState([]);
-  const [newSaving, setNewSaving] = useState({
-    name: '',
-    goal: '',
-    duration: '',
-    saved_amount: '',
-  });
+
+export default function Savings({userID}) {
+  const [saving, setSaving] = React.useState([]);
+  const [sims, setSims] = React.useState([]);
+  const [cards, setCards] = React.useState([]);
+  const [category, setCategory] = React.useState([])
+
 
   useEffect(() => {
-    fetch('https://pockets.onrender.com/savings')
-      .then(response => response.json())
-      .then(data => {
-        setSavings(data);
-      })
-      .catch(error => {
-        console.error('Error fetching savings:', error);
-      });
-  }, []);
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setNewSaving(prevState => ({ ...prevState, [name]: value }));
-  };
+    fetch(`https://pockets.onrender.com/userSaves/${userID}`)
+    .then(res => res.json())
+    .then(data => {
+      console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+      let dataset = []
+      for(let saves of data){
+        dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
+          time: saves.duration, sim:saves.simContrib, card: saves.cardContrib,
+          remaining: saves.Remaining
+        })
+      }
+      setSaving(dataset)
 
-  const handleSubmit = (event) => {
-    event.preventDefault();
-
-    fetch('https://pockets.onrender.com/savings', {
-      method: 'POST',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(newSaving),
     })
-      .then(response => response.json())
-      .then(data => {
-        const createdSaving = data;
-        setSavings(prevState => [...prevState, createdSaving]);
-        setNewSaving({
-          name: '',
-          goal: '',
-          duration: '',
-          saved_amount: '',
-        });
-      })
-      .catch(error => {
-        console.error('Error creating saving:', error);
-      });
-  };
+    .catch(err => console.log(err))
 
-  const handleDelete = (id) => {
-    fetch(`https://pockets.onrender.com/savings/${id}`, {
-      method: 'DELETE',
+    fetch(`https://pockets.onrender.com/userCards/${userID}`)
+    .then(res => res.json())
+    .then(data => {
+      let dataset = []
+      for(let cards of data){
+        dataset.push({id: cards.id, name: cards.name})
+      }
+      setCards(dataset)
+      setCategory(dataset)
     })
-      .then(() => {
-        setSavings(prevState => prevState.filter(saving => saving.id !== id));
-      })
-      .catch(error => {
-        console.error(`Error deleting saving with ID ${id}:`, error);
-      });
-  };
 
-  const handleUpdate = (id, updatedSaving) => {
-    fetch(`https://pockets.onrender.com/savings/${id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(updatedSaving),
+    fetch(`https://pockets.onrender.com/userSims/${userID}`)
+    .then(res => res.json())
+    .then(data => {
+      let dataset = []
+      for(let sims of data){
+        dataset.push({id: sims.id, name: sims.name})
+      }
+      setSims(dataset)
+      
     })
-      .then(response => response.json())
-      .then(data => {
-        const updatedSavings = savings.map(saving => {
-          if (saving.id === id) {
-            return { ...saving, ...data };
-          }
-          return saving;
-        });
-        setSavings(updatedSavings);
-      })
-      .catch(error => {
-        console.error(`Error updating saving with ID ${id}:`, error);
-      });
-  };
+  },[])
 
-  const handleUpdateFormSubmit = (event, id) => {
-    event.preventDefault();
-    const updatedSaving = {
-      goal: event.target.goal.value,
-      duration: event.target.duration.value,
-      saved_amount: event.target.saved_amount.value,
-    };
-    handleUpdate(id, updatedSaving);
-  };
+  const [showAdd, setAdd] = React.useState(false);
 
-  return (
-    <div className="savings-container">
-      <h2>Savings</h2>
+  function handleAdd(){
+    setAdd(!showAdd)
+  }
+  const [showNew, setNew] = React.useState(false);
 
-      <form className="savings-form" onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="name"
-          placeholder="Name"
-          value={newSaving.name}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="goal"
-          placeholder="Goal"
-          value={newSaving.goal}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="duration"
-          placeholder="Duration"
-          value={newSaving.duration}
-          onChange={handleInputChange}
-        />
-        <input
-          type="text"
-          name="saved_amount"
-          placeholder="Saved Amount"
-          value={newSaving.saved_amount}
-          onChange={handleInputChange}
-        />
-        <button type="submit">Add Saving</button>
-      </form>
+  function handleNew(){
+    setNew(!showNew)
+  }
 
-      {savings.map(saving => (
-        <div className="savings-item" key={saving.id}>
-          <h3>{saving.name}</h3>
-          <p>Goal: {saving.goal}</p>
-          <p>Duration: {saving.duration}</p>
-          <p>Saved Amount: {saving.saved_amount}</p>
-          <div className="update-form">
-            <button>Update</button>
-            <form onSubmit={(event) => handleUpdateFormSubmit(event, saving.id)}>
-              <input
-                type="text"
-                name="goal"
-                placeholder="New Goal"
-              />
-              <input
-                type="text"
-                name="duration"
-                placeholder="New Duration"
-              />
-              <input
-                type="text"
-                name="saved_amount"
-                placeholder="New Saved Amount"
-              />
-              <button type="submit">Save</button>
-            </form>
-          </div>
-          <button onClick={() => handleDelete(saving.id)}>Delete</button>
+  let showSaves = saving.map((save)=>{
+    return(
+      <div className='eSavings' key={save.id}>
+        <div className='eSaveDetails' key={'details'+save.id}>
+          <h2>{save.name}</h2>
+          <p><span>Goal:</span> {save.goal}</p>
+          <p><span>Time:</span> {save.time} months</p>
+          <p><span>Sim Contribution:</span> {save.sim}</p>
+          <p><span>Card Contribution:</span> {save.card}</p>
+          <p><span>Remaining:</span> {save.remaining}</p>
         </div>
-      ))}
-    </div>
-  );
-}
+        <div className='eSaveOptions' key={'options'+save.id}>
+          <div className='eSaveEdit' id='eSaveUP' key={'edit'+save.id} onClick={()=>handleSaveUp(save.id,save.name)}>
+            <p>Save up</p>
+          </div>
+          <div className='eSaveEdit' key={'del'+save.id+1} onClick={()=>handleDelete(save.id)}>
+            <p>Delete</p>
+          </div>
+        </div>
+      </div>
+    )
+  })
 
-export default Savings;
+  function handleDelete(id){
+    let choice = confirm("Are you sure you want to delete this save? ")
+    if(choice){
+      fetch(`https://pockets.onrender.com/savings/${id}`,{
+        method: 'DELETE',
+        headers: {'Content-Type': 'application/json'}
+      })
+      .then(res => res.json())
+      .then(
+        fetch(`https://pockets.onrender.com/userSaves/${userID}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+          let dataset = []
+          for(let saves of data){
+            dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
+              time: saves.duration, sim:saves.simContrib, card: saves.cardContrib,
+              remaining: saves.Remaining
+            })
+          }
+          setSaving(dataset)
+
+        })
+        .catch(err => console.log(err))
+      )
+
+    }
+  }
+
+  function handleChoice(e){
+    let choice = e.target.value
+    console.log(choice)
+    if(choice == 'sim'){
+      setCategory(sims)
+    }
+    else{
+      setCategory(cards)
+    }
+  }
+
+  let userChoice = category.map((choice)=>{
+    return(
+      <option value={choice.id} key={choice.id}>
+        {choice.name}
+      </option>
+    )
+  })
+
+  function handleNewSave(e){
+    e.preventDefault()
+    let form = e.target
+    let goal = form[0].value
+    let amount = form[1].value
+    let duration = form[2].value
+    let id = userID
+
+    let dataset = {
+      name: goal,
+      goal: parseInt(amount),
+      duration: parseInt(duration),
+      user_id: id
+    }
+    console.log("file: Savings.jsx:121 -> handleNewSave -> dataset:", dataset);
+
+    fetch("https://pockets.onrender.com/savings",{
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(dataset)
+    }).then(res => res.json())
+    .then(
+      fetch(`https://pockets.onrender.com/userSaves/${userID}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+        let dataset = []
+        for(let saves of data){
+          dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
+            time: saves.duration, sim:saves.simContrib, card: saves.cardContrib,
+            remaining: saves.Remaining
+          })
+        }
+        setSaving(dataset)
+
+      })
+      .then(
+        fetch(`https://pockets.onrender.com/userSaves/${userID}`)
+        .then(res => res.json())
+        .then(data => {
+          console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+          let dataset = []
+          for(let saves of data){
+            dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
+              time: saves.duration, sim:saves.simContrib, card: saves.cardContrib,
+              remaining: saves.Remaining
+            })
+          }
+          setSaving(dataset)
+
+        })
+        .catch(err => console.log(err))
+      )
+      
+    )
+
+    form.reset()
+    setNew(!showNew)
+  }
+
+  const[saveKey, setSaveKey] = React.useState([])
+
+  function handleSave(e){
+    e.preventDefault()
+    
+    let form = e.target
+    let amnt = form[0].value
+    let choice = form[1].value
+    let choiceID = form[2].value
+    console.log(saveKey)
+    let id = saveKey[0]
+    let name = saveKey[1]
+
+    let dataSet = {}
+    let url = ''
+    
+    if(choice == 'card'){
+      dataSet.goalName = name
+      dataSet.amount = parseInt(amnt)
+      dataSet.card_id = parseInt(choiceID)
+      dataSet.saving_id = id
+      url = 'https://pockets.onrender.com/save_cards'
+    }
+    else{
+      dataSet.goalName = name
+      dataSet.amount = parseInt(amnt)
+      dataSet.sim_id = parseInt(choiceID)
+      dataSet.saving_id = id
+      url = 'https://pockets.onrender.com/save_sims'
+    }
+    
+    fetch(url,{
+      method: "POST",
+      headers: {'Content-Type': 'application/json'},
+      body: JSON.stringify(dataSet)
+    }).then(res => res.json())
+    .then(
+      fetch(`https://pockets.onrender.com/userSaves/${userID}`)
+      .then(res => res.json())
+      .then(data => {
+        console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+        let dataset = []
+        for(let saves of data){
+          dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
+            time: saves.duration, sim:saves.simContrib, card: saves.cardContrib,
+            remaining: saves.Remaining
+          })
+        }
+        setSaving(dataset)
+
+      })
+      .catch(err => console.log(err))
+    )
+    
+    form.reset()
+    setAdd(!showAdd)
+  }
+
+  function handleSaveUp(id, name){
+    setSaveKey([id, name])
+    setAdd(!showAdd)
+  }
+
+  return(
+    <div id='eSavingsMain'>
+      <h1 id='eSavingsTitle'>Savings</h1>
+      <Link to='/'>
+        <div id='mainLogo'>
+          <h1>POC<span>KETS</span></h1>
+        </div>
+      </Link>
+
+      <div id='eSavingsContent'>
+        {showSaves}
+      </div>
+
+      <div id='eSavingsNew' onClick={handleNew}>
+        <p>New Goal</p>
+      </div>
+
+      {showAdd&&
+      <div className='eNewSave'>
+        <div className='eNewSaveContent'>
+          <div className='eNewSaveHeader'>
+            <h1>New Contribution</h1>
+          </div>
+
+          <div className='eNewSaveBody'>
+            <form action="submit" onSubmit={handleSave} className="eNewSaveForm">
+              <input type="number" required placeholder='Amount'/>
+              <select id='eSelectChoice'  onChange={handleChoice}>
+                <option value="card">Card Contribution</option>
+                <option  value="sim">Sim Contribution</option>
+              </select>
+              <select name="choice">
+                {userChoice}
+              </select>
+              <button type='submit'>Save</button>
+            </form>
+          </div>          
+        </div>
+      </div>}
+
+      {showNew&&
+      <div className='eNewSave'>
+        <div className='eNewSaveContent'>
+          <div className='eNewSaveHeader'>
+            <h1>Saving</h1>
+          </div>
+
+          <div className='eNewSaveBody' onSubmit={handleNewSave}>
+            <form action="submit" className="eNewSaveForm">
+              <input type="text" required placeholder='Goal name'/>
+              <input type="number" required placeholder='Goal amount'/>
+              <input type="number" required placeholder='Duration (months)'/>
+              <button type='submit'>Add</button>
+            </form>
+          </div>          
+        </div>
+      </div>}
+
+
+    </div>
+  )
+}
