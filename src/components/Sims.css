@@ -55,26 +55,26 @@
 }
 
 #sim1{
-    background-image: url(src/components/images/Telecom.PNG);
+    background-image: url('./images/Telecom.PNG');
 }
 
 #sim2{
-  background-image: url(src/components/images/Airtel2.jpg);
+  background-image: url('./images/Airtel2.jpg');
 }
 
 #sim3{
-  background-image: url(src/components/images/Safaricom.PNG);
+  background-image: url('./images/Safaricom.PNG');
 }
 
 #sim4{
-  background-image: url(src/components/images/Telecom.PNG);
+  background-image: url('./images/Telecom.PNG');
 }
 #sim5{
-  background-image: url(src/components/images/Airtel2.jpg);
+  background-image: url('./images/Airtel2.jpg');
 }
 
 #sim6{
-  background-image: url(src/components/images/Safaricom.PNG);
+  background-image: url('./images/Safaricom.PNG');
 }
 
 .gSim:hover::before {
