@@ -140,6 +140,8 @@
 }
 
 .gModal {
+  overflow: auto;
+  max-height: 80vh;
   background-color: #bbbbbb;
   padding: 20px;
   border-radius: 4px;
@@ -147,8 +149,6 @@
   max-width: 400px;
   width: 80%;
   text-align: left;
-  height: 60%;
-  justify-content: space-evenly;
   display: flex;
   flex-direction: column;
 }
@@ -164,12 +164,13 @@
 .gModal ul {
   list-style-type: none;
   padding: 0;
-  margin: 0 0 10px;
-  margin-left: 35%;
+  margin: 0;
+  max-height: 200px;
   color: white;
+  overflow-y: auto;
 }
 
-.gModal li {
+.gModal ul li {
   margin-bottom: 5px;
 }
 
@@ -181,8 +182,6 @@
   justify-content: space-evenly;
   align-items: center;
   gap: 5%;
-  height: 15%;
-  align-self: center;
 }
 
 
@@ -303,7 +302,7 @@
   margin-bottom: 5px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 50%;
+  width: 57%;
 }
 
 #gInputTransaction input{
@@ -311,7 +310,7 @@
   margin-bottom: 5px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 65%;
+  width: 50%;
 }
 
 #gAddNewSim select{

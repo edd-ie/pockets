@@ -7,9 +7,10 @@ const Sims = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newSim, setNewSim] = useState({
+    user_id: '',
     simName: '',
     balance: '',
-    sim: '',
+    name: '',
   });
   const [showDropdown, setShowDropdown] = useState(false);
   const [showTransactionTable, setShowTransactionTable] = useState(false);
@@ -27,44 +28,56 @@ const Sims = () => {
       .catch((error) => console.log(error));
   }, []);
 
-  const handleAddTransaction = (event) => {
-    event.preventDefault();
+const handleAddTransaction = (event) => {
+  event.preventDefault();
 
-    // Add the transaction to the selected Sim
-    const updatedTransactions = [...transactions];
-    const selectedSimIndex = updatedTransactions.findIndex(
-      (sim) => sim.id === selectedTransaction.id
-    );
-    updatedTransactions[selectedSimIndex].simTransactions.push(newTransaction);
+  if (!selectedTransaction) {
+    return; // Return early if selectedTransaction is null
+  }
 
-    // Update the transactions state
-    setTransactions(updatedTransactions);
+  const selectedSimIndex = transactions.findIndex(
+    (sim) => sim.id === selectedTransaction.id
+  );
 
-    // Make an API request to update the transaction in the backend
-    fetch(`https://pockets.onrender.com/sims/${selectedTransaction.id}`, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-      },
-      body: JSON.stringify(selectedTransaction),
+  const updatedSelectedTransaction = { ...transactions[selectedSimIndex] };
+
+  if (!Array.isArray(updatedSelectedTransaction.simTransactions)) {
+    updatedSelectedTransaction.simTransactions = [];
+  }
+
+  const updatedSimTransactions = [
+    ...updatedSelectedTransaction.simTransactions,
+    newTransaction,
+  ];
+
+  updatedSelectedTransaction.simTransactions = updatedSimTransactions;
+
+  const updatedTransactions = [...transactions];
+  updatedTransactions[selectedSimIndex] = updatedSelectedTransaction;
+
+  fetch(`https://pockets.onrender.com/sims/${selectedTransaction.id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(updatedSelectedTransaction),
+  })
+    .then((response) => response.json())
+    .then((data) => {
+      console.log('Transaction added successfully:', data);
     })
-      .then((response) => response.json())
-      .then((data) => {
-        // Handle the response from the backend if needed
-        console.log('Transaction added successfully:', data);
-      })
-      .catch((error) => {
-        // Handle any errors
-        console.error('Error adding transaction:', error);
-      });
-
-    // Reset the newTransaction state
-    setNewTransaction({
-      category: '',
-      amount: 0,
+    .catch((error) => {
+      console.error('Error adding transaction:', error);
     });
-  };
 
+  setTransactions(updatedTransactions);
+  setNewTransaction({
+    category: '',
+    amount: 0,
+  });
+};
+  
+  
   const handleRemoveSim = (simId) => {
     // Remove the selected Sim from the transactions
     const updatedTransactions = transactions.filter((sim) => sim.id !== simId);
@@ -72,9 +85,8 @@ const Sims = () => {
     // Update the transactions state
     setTransactions(updatedTransactions);
   
-    // Close the modal by resetting the selectedTransaction state
-    setSelectedTransaction(null);
   
+
     // Make an API request to delete the Sim from the backend
     fetch(`https://pockets.onrender.com/sims/${simId}`, {
       method: 'DELETE',
@@ -88,6 +100,8 @@ const Sims = () => {
         // Handle any errors
         console.error('Error deleting Sim:', error);
       });
+  // Close the modal by resetting the selectedTransaction state
+      setSelectedTransaction(null);
   };
   
   const handleSimClick = (transaction) => {
@@ -98,30 +112,17 @@ const Sims = () => {
     setShowTransactionTable(false);
   };
 
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    // if (name === 'details') {
-      setNewSim((prevState) => ({
-        ...prevState,
-        [name]: [value], // Initialize as an array with the current value
-      }));
-  //   } else {
-  //     setNewSim((prevState) => ({
-  //       ...prevState,
-  //       [name]: value,
-    
-  // }));
-   };
+const handleInputChange = (event) => {
+  const { name, value } = event.target;
+  setNewSim((prevState) => ({
+    ...prevState,
+    [name]: value,
+  }));
+};
+
 
   const handleAddSim = (event) => {
     event.preventDefault();
-  
-    // Create a new Sim object with the allowed data
-    // const newSimData = {
-    //   name: newSim.name,
-    //   balance: newSim.balance,
-    //   simName: newSim.simName,
-    // };
   
     // Make an API request to add the new Sim to the backend
     fetch('https://pockets.onrender.com/sims', {
@@ -141,6 +142,7 @@ const Sims = () => {
   
         // Reset the newSim state
         setNewSim({
+          user_id: '',
           name: '',
           balance: '',
           simName: '',
@@ -190,6 +192,7 @@ const Sims = () => {
             <div className="gDropdown-content">
               <div className="sim-details">
                 <h2 id = 'gDetails-title'>Sim Details</h2>
+                <p>User_id: {newSim.user_id ? newSim.user_id : 'N/A'}</p>
                 <p>Name: {newSim.simName ? newSim.simName : 'N/A'}</p>
                 <p>Sim: {newSim.name ? newSim.name : 'N/A'}</p>
                 <p>Balance: {newSim.balance ? newSim.balance : 'N/A'}</p>
@@ -198,6 +201,15 @@ const Sims = () => {
                 <div className="gSim-form">
                   <h3>Add New Sim</h3>
                   <form onSubmit={handleAddSim}>
+                  <div>
+                      <input
+                        type="text"
+                        placeholder="User_id"
+                        name="user_id"
+                        value={newSim.user_id}
+                        onChange={handleInputChange}
+                      />
+                    </div>
                   <div>
                       <input
                         type="text"
@@ -221,7 +233,6 @@ const Sims = () => {
                         ))}
                       </select>
                     </div>
-
                     <div>
                       <input
                         type="text"
@@ -310,7 +321,7 @@ const Sims = () => {
       )}
     </div>
     <div id='gHelp'>
-      <span class="material-symbols-sharp">
+      <span className="material-symbols-sharp">
         info
       </span>
       <p>Click on a Sim to view/add transactions</p>
