@@ -7,6 +7,7 @@ import Cards from './components/Cards';
 import Subscription from './components/Subscription';
 import SignUp from './components/Signup';
 import LogIn from './components/Login';
+import Savings from './components/Savings';
 
 
 function App() {
@@ -40,6 +41,10 @@ function App() {
       {
         path: "/cards",
         element: <Cards/>,
+      },
+      {
+        path: "/savings",
+        element: <Savings/>,
       },
       {
         path: "/subscription",
