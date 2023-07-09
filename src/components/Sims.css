@@ -66,8 +66,16 @@
   background-image: url(src/components/images/Safaricom.PNG);
 }
 
-/* #sim4{
-} */
+#sim4{
+  background-image: url(src/components/images/Telecom.PNG);
+}
+#sim5{
+  background-image: url(src/components/images/Airtel2.jpg);
+}
+
+#sim6{
+  background-image: url(src/components/images/Safaricom.PNG);
+}
 
 .gSim:hover::before {
   content: '';
