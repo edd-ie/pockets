@@ -7,10 +7,8 @@ const Sims = () => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newSim, setNewSim] = useState({
-    simNumber: '',
-    details: [],
+    simName: '',
     balance: '',
-    category: '',
     sim: '',
   });
   const [showDropdown, setShowDropdown] = useState(false);
@@ -102,23 +100,29 @@ const Sims = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'details') {
+    // if (name === 'details') {
       setNewSim((prevState) => ({
         ...prevState,
         [name]: [value], // Initialize as an array with the current value
       }));
-    } else {
-      setNewSim((prevState) => ({
-        ...prevState,
-        [name]: value,
+  //   } else {
+  //     setNewSim((prevState) => ({
+  //       ...prevState,
+  //       [name]: value,
     
-  }));
-   }
-  };
+  // }));
+   };
 
   const handleAddSim = (event) => {
     event.preventDefault();
-
+  
+    // Create a new Sim object with the allowed data
+    // const newSimData = {
+    //   name: newSim.name,
+    //   balance: newSim.balance,
+    //   simName: newSim.simName,
+    // };
+  
     // Make an API request to add the new Sim to the backend
     fetch('https://pockets.onrender.com/sims', {
       method: 'POST',
@@ -131,17 +135,15 @@ const Sims = () => {
       .then((data) => {
         // Handle the response from the backend if needed
         console.log('Sim added successfully:', data);
-
+  
         // Update the transactions state with the new Sim
         setTransactions((prevState) => [...prevState, data]);
-
+  
         // Reset the newSim state
         setNewSim({
-          simNumber: '',
-          details: [],
+          name: '',
           balance: '',
-          category: '',
-          sim: '',
+          simName: '',
         });
       })
       .catch((error) => {
@@ -149,12 +151,14 @@ const Sims = () => {
         console.error('Error adding Sim:', error);
       });
   };
+  
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
   };
 
   const categoryOptions = ['food', 'clothes', 'electronics', 'household', 'other', 'transport', 'health', 'education', 'entertainment'];
+  const sims = ['telcom', 'airtel', 'saf'];
 
   return (
     <div className="gSimsHome">
@@ -186,47 +190,50 @@ const Sims = () => {
             <div className="gDropdown-content">
               <div className="sim-details">
                 <h2 id = 'gDetails-title'>Sim Details</h2>
-                <p>Sim Number: {newSim.simNumber ? newSim.simNumber : 'N/A'}</p>
+                <p>Name: {newSim.simName ? newSim.simName : 'N/A'}</p>
+                <p>Sim: {newSim.name ? newSim.name : 'N/A'}</p>
                 <p>Balance: {newSim.balance ? newSim.balance : 'N/A'}</p>
-                <p>Category: {newSim.category ? newSim.category : 'N/A'}</p>
-                <p>Sim: {newSim.sim ? newSim.sim : 'N/A'}</p>
               </div>
 
-              <div className="gSim-form">
-                <h3>Add New Sim</h3>
-                <form onSubmit={handleAddSim}>
+                <div className="gSim-form">
+                  <h3>Add New Sim</h3>
+                  <form onSubmit={handleAddSim}>
                   <div>
-                    <input
-                      type="text"
-                      placeholder="Sim Number"
-                      name="simNumber"
-                      value={newSim.simNumber}
-                      onChange={handleInputChange}
-                    />
-                  </div>
+                      <input
+                        type="text"
+                        placeholder="Name"
+                        name="simName"
+                        value={newSim.simName}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <div id = 'gAddNewSim'>
+                      <select
+                        name="name"
+                        value={newSim.name}
+                        onChange={handleInputChange}
+                      >
+                        <option value="">Select a Sim</option>
+                        {sims.map((sim) => (
+                          <option key={sim} value={sim}>
+                            {sim}
+                          </option>
+                        ))}
+                      </select>
+                    </div>
 
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Balance"
-                      name="balance"
-                      value={newSim.balance}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <div>
-                    <input
-                      type="text"
-                      placeholder="Sim"
-                      name="sim"
-                      value={newSim.sim}
-                      onChange={handleInputChange}
-                    />
-                  </div>
-                  <button
-                  type="submit" onClick={toggleDropdown}>Add Sim</button>
-                </form>
-              </div>
+                    <div>
+                      <input
+                        type="text"
+                        placeholder="Balance"
+                        name="balance"
+                        value={newSim.balance}
+                        onChange={handleInputChange}
+                      />
+                    </div>
+                    <button type="submit">Add Sim</button>
+                  </form>
+                </div>
             </div>
           )}
         </div>
