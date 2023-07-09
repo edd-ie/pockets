@@ -30,15 +30,15 @@ const Cards = () => {
 
   const handleAddTransaction = (event) => {
     event.preventDefault();
-
+  
     const updatedTransactions = [...transactions];
     const selectedCardIndex = updatedTransactions.findIndex(
       (card) => card.id === selectedTransaction.id
     );
     updatedTransactions[selectedCardIndex].cardTransactions.push(newTransaction);
-
+  
     setTransactions(updatedTransactions);
-
+  
     fetch(`https://pockets.onrender.com/cards/${selectedTransaction.id}`, {
       method: 'PUT',
       headers: {
@@ -53,12 +53,13 @@ const Cards = () => {
       .catch((error) => {
         console.error('Error adding transaction:', error);
       });
-
+  
     setNewTransaction({
       category: '',
       amount: 0,
     });
   };
+  
 
   const handleRemoveCard = (cardId) => {
     const updatedTransactions = transactions.filter((card) => card.id !== cardId);
