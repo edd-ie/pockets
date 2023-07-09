@@ -115,11 +115,11 @@
 
 #ePdetails{
     position: absolute;
-    height: 12%;
-    width: 9%;
+    height: 19%;
+    width: 10%;
     background: rgba(197, 192, 192, 0.541);
-    top: 1%;
-    left: 90%;
+    top: 2%;
+    left: 88%;
     margin: 0;
     border-radius: 16px;
     justify-content: space-around;
@@ -133,14 +133,24 @@
     position: relative;
     width: 75%;
     height: 30%;
+    padding: 0;
+    padding-top: 1%;
     text-align: center;
     border-radius: 5px;
     border: none;
     background: rgba(255, 255, 255, 0.479);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
 }
 
+#ePdetails .eTabsClick:hover{
+    background: rgb(41, 240, 41);
+    color: white;
+}
 #ePLogout:hover{
     background: rgba(252, 4, 4, 0.753);
+    color: white;
 }
 
 #eMain{
@@ -294,6 +304,10 @@
     color: white;
     padding-left: 1%;
     background: rgb(21, 27, 32);
+    display: flex;
+    flex-direction: column;
+    justify-content: space-evenly;
+    padding-left: 2%;
 }
 
 .eGTxt{
@@ -309,4 +323,33 @@
     height: 100%;
     background: rgb(21, 27, 32);
     border-radius: 15px;
+}
+
+
+.eRemSavings{
+    display: flex;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    justify-content: left;
+    padding-left: 2%;
+}
+
+.eRemSavings p{
+    padding: 0;
+    margin: 0;
+    align-self: center;
+    font-size: large;
+    margin-left: 2%;
+}
+
+.eRemSavingsName{
+    font-weight: 500;
+}
+
+#eCatHeader{
+    padding: 0;
+    margin: 0;
+    margin-left: 30%;
+    text-decoration: underline;
 }
