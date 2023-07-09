@@ -19,6 +19,8 @@
  
 }
 
+
+
 #gBTN{
   color: #ccc;
   position: absolute;
@@ -55,19 +57,27 @@
 }
 
 #sim1{
-    background-image: url(src/components/images/Telecom.PNG);
+    background-image: url('./images/Telecom.PNG');
 }
 
 #sim2{
-  background-image: url(src/components/images/Airtel2.jpg);
+  background-image: url('./images/Airtel2.jpg');
 }
 
 #sim3{
-  background-image: url(src/components/images/Safaricom.PNG);
+  background-image: url('./images/Safaricom.PNG');
 }
 
-/* #sim4{
-} */
+#sim4{
+  background-image: url('./images/Telecom.PNG');
+}
+#sim5{
+  background-image: url('./images/Airtel2.jpg');
+}
+
+#sim6{
+  background-image: url('./images/Safaricom.PNG');
+}
 
 .gSim:hover::before {
   content: '';
@@ -292,10 +302,18 @@
 
 #gCategoryDropDown select {
   padding: 10px;
-  margin-bottom: 10px;
+  margin-bottom: 5px;
   border-radius: 4px;
   border: 1px solid #ccc;
-  width: 100%;
+  width: 50%;
+}
+
+#gInputTransaction input{
+  padding: 10px;
+  margin-bottom: 5px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  width: 65%;
 }
 
 #gDetails-title{

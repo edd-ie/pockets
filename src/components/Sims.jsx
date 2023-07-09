@@ -3,7 +3,7 @@ import SimTransactionTable from './SimTransactionTable.jsx';
 import "./Sims.css";
 import { Link } from 'react-router-dom';
 
-const Sims = () => {
+const Sims = ({userID}) => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newSim, setNewSim] = useState({
@@ -214,20 +214,6 @@ const Sims = () => {
                       onChange={handleInputChange}
                     />
                   </div>
-                  <div id ='gCategoryDropDown'>
-                    <select
-                      name="category"
-                      value={newSim.category}
-                      onChange={handleInputChange}
-                    >
-                      <option value="">Select a category</option>
-                      {categoryOptions.map((option) => (
-                        <option key={option} value={option}>
-                          {option}
-                        </option>
-                      ))}
-                    </select>
-                  </div>
                   <div>
                     <input
                       type="text"
@@ -262,21 +248,26 @@ const Sims = () => {
                 <p>No transactions available</p>
               )}
               <form onSubmit={handleAddTransaction}>
-                <div>
-                  <input
-                    type="text"
-                    placeholder="Category"
-                    name="category"
-                    value={newTransaction.category}
-                    onChange={(e) =>
-                      setNewTransaction((prevState) => ({
-                        ...prevState,
-                        category: e.target.value,
-                      }))
-                    }
-                  />
-                </div>
-                <div>
+                <div id ='gCategoryDropDown'>
+                    <select
+                      name="category"
+                      value={newTransaction.category}
+                      onChange={(e) =>
+                        setNewTransaction((prevState) => ({
+                          ...prevState,
+                          category: e.target.value,
+                        }))
+                      }
+                    >
+                      <option value="">Select a category</option>
+                      {categoryOptions.map((option) => (
+                        <option key={option} value={option}>
+                          {option}
+                        </option>
+                      ))}
+                    </select>
+                  </div>
+                <div id ='gInputTransaction'>
                   <input
                     type="number"
                     placeholder="Amount"

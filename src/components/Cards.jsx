@@ -3,7 +3,7 @@ import './Cards.css';
 import CardTransactionTable from './CardTransactionTable';
 import { Link } from 'react-router-dom';
 
-const Cards = () => {
+const Cards = ({userID}) => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newCard, setNewCard] = useState({

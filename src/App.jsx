@@ -11,8 +11,8 @@ import Savings from './components/Savings';
 
 
 function App() {
-  const [userId, setUserId] = useState(1);
   const [user, setUser] = useState([]);
+  const [userId, setUserId] = useState(1);
   console.log("file: App.jsx:15 -> App -> user:", user['id']);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   console.log("file: App.jsx:16 -> App -> isLoggedIn:", isLoggedIn);
@@ -32,27 +32,23 @@ function App() {
   const router = createBrowserRouter([
       {
         path: "/",
-        element: <Dashboard user={userId} onLogOff={(e)=>setUser(e)} setIsLoggedIn={(e)=>setIsLoggedIn(e)}/>
+        element: <Dashboard userId={userId} onLogOff={(e)=>setUser(e)} setIsLoggedIn={(e)=>setIsLoggedIn(e)}/>
       },
       {
         path: "/sims",
-        element: <Sims/>,
+        element: <Sims userID={userId}/>,
       },
       {
         path: "/cards",
-        element: <Cards/>,
+        element: <Cards userID={userId}/>,
       },
       {
         path: "/savings",
-        element: <Savings/>,
+        element: <Savings userID={userId}/>,
       },
       {
         path: "/subscription",
-        element: <Subscription/>
-      },
-      {
-        path: "/signUp",
-        element: <SignUp user={()=>setUser} webState={()=>setIsLoggedIn}/> 
+        element: <Subscription userId={userId} setUserData={(e)=>setUser(e)}/>
       },
       {
         path: "/login",
@@ -67,7 +63,7 @@ function App() {
   
   }
   else{
-    return (<LogIn setUserData={(e)=>setUser(e)} webState={(e)=>setIsLoggedIn(e)}/>)
+    return (<LogIn setUserId={(e)=>setUserId(e)} setUserData={(e)=>setUser(e)} webState={(e)=>setIsLoggedIn(e)}/>)
   }
 }
 
