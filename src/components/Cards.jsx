@@ -62,9 +62,9 @@ const Cards = () => {
 
   const handleRemoveCard = (cardId) => {
     const updatedTransactions = transactions.filter((card) => card.id !== cardId);
-
+  
     setTransactions(updatedTransactions);
-
+  
     fetch(`https://pockets.onrender.com/cards/${cardId}`, {
       method: 'DELETE',
     })
@@ -75,7 +75,10 @@ const Cards = () => {
       .catch((error) => {
         console.error('Error deleting card:', error);
       });
+  
+    setSelectedTransaction(null); // Close the modal by setting selectedTransaction to null
   };
+  
 
 
   const handleCardClick = (transaction) => {
