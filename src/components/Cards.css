@@ -113,6 +113,10 @@
   background-image: url(src/components/images/Equity.PNG);
 }
 
+#card4{
+  background-image: url(src/components/images/KCB.png);
+}
+
 .gTransaction-details {
   position: fixed;
   top: 0;
@@ -288,7 +292,4 @@
   padding: 10px;
 }
 
-#gCategoryDropDown {
-  width: 500px;
-  justify-content: center;
-}
+
