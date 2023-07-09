@@ -85,9 +85,6 @@ const Cards = () => {
     setSelectedTransaction(transaction);
   };
 
-  const handleViewTransactions = () => {
-    setShowTransactionTable(true);
-  };
 
   const handleGoBack = () => {
     setShowTransactionTable(false);
@@ -95,24 +92,18 @@ const Cards = () => {
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    if (name === 'details') {
-      setNewCard((prevState) => ({
-        ...prevState,
-        [name]: [value], // Initialize as an array with the current value
-      }));
-    } else {
-      setNewCard((prevState) => ({
-        ...prevState,
-        [name]: value,
-      }));
-    }
+    setNewCard((prevState) => ({
+      ...prevState,
+      [name]: value,
+    }));
   };
+  
 
   const handleAddCard = (event) => {
     event.preventDefault();
 
-    // Make an API request to add the new Sim to the backend
-    fetch('https://pockets.onrender.com/sims', {
+   
+    fetch('https://pockets.onrender.com/cards', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
@@ -121,13 +112,10 @@ const Cards = () => {
     })
       .then((response) => response.json())
       .then((data) => {
-        // Handle the response from the backend if needed
         console.log('Card added successfully:', data);
 
-        // Update the transactions state with the new Sim
         setTransactions((prevState) => [...prevState, data]);
 
-        // Reset the newSim state
         setNewCard({
           name: '',
           balance: '',
@@ -178,47 +166,47 @@ const Cards = () => {
             )}
             {showDropdown && (
               <div className="gDropdown-content">
-                <div className="card-details">
-                  <h2>Card Details</h2>
-                  <p>Name: {newCard.name ? newCard.name : 'N/A'}</p>
-                  <p>Balance: {newCard.balance ? newCard.balance : 'N/A'}</p>
-                  <p>Bank: {newCard.bank ? newCard.bank : 'N/A'}</p>
-                </div>
-
-                <div className="gCard-form">
-                  <h3>Add New Card</h3>
-                  <form onSubmit={handleAddCard}>
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Name"
-                        name="name"
-                        value={newCard.name}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Balance"
-                        name="balance"
-                        value={newCard.balance}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                    <div>
-                      <input
-                        type="text"
-                        placeholder="Bank"
-                        name="bank"
-                        value={newCard.bank}
-                        onChange={handleInputChange}
-                      />
-                    </div>
-                    <button type="submit" onClick={toggleDropdown}>Add Card</button>
-                  </form>
-                </div>
+              <div className="card-details">
+                <h2>Card Details</h2>
+                <p>Name: {newCard.name ? newCard.name : 'N/A'}</p>
+                <p>Balance: {newCard.balance ? newCard.balance : 'N/A'}</p>
+                <p>Bank: {newCard.bank ? newCard.bank : 'N/A'}</p>
               </div>
+
+              <div className="gCard-form">
+                <h3>Add New Card</h3>
+                <form onSubmit={handleAddCard}>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Name"
+                      name="name"
+                      value={newCard.name}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Balance"
+                      name="balance"
+                      value={newCard.balance}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <div>
+                    <input
+                      type="text"
+                      placeholder="Bank"
+                      name="bank"
+                      value={newCard.bank}
+                      onChange={handleInputChange}
+                    />
+                  </div>
+                  <button type="submit">Add Card</button>
+                </form>
+              </div>
+            </div>
             )}
           </div>
 
