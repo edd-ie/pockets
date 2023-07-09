@@ -100,7 +100,7 @@ const Cards = () => {
 
   const handleAddCard = (event) => {
     event.preventDefault();
-
+  
     fetch('https://pockets.onrender.com/cards', {
       method: 'POST',
       headers: {
@@ -111,20 +111,25 @@ const Cards = () => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Card added successfully:', data);
-
+  
         setTransactions((prevState) => [...prevState, data]);
-
+  
         setNewCard({
-          user_id:'',
+          user_id: '',
           name: '',
           balance: '',
           bank: '',
         });
+  
+        setSelectedTransaction(data); 
+        setShowTransactionTable(false);
+        setShowDropdown(false);
       })
       .catch((error) => {
         console.error('Error adding Card:', error);
       });
   };
+  
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
