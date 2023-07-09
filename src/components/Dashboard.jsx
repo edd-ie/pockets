@@ -5,35 +5,52 @@ import DashCalender from './DashCal';
 import DashVol from './DashVol';
 import { Link, useNavigate } from 'react-router-dom';
 
-export default function Dashboard({user, onLogOff, setIsLoggedIn}) {
+export default function Dashboard({userId, onLogOff, setIsLoggedIn}) {
     const [catData, setCatData] = React.useState([])
     const [simBalance, setSimBalance] = React.useState([])
     const [valTab, setValTab] = React.useState('Sim')
     const [choice, setChoice] = React.useState('sim')
+    const [userSavings, setUserSavings] = React.useState([])
+    console.log("file: Dashboard.jsx:14 -> Dashboard -> userSavings:", userSavings);
 
     const navigate = useNavigate()
 
     const date = new Date().toLocaleDateString('en-US')
     const day = new Date().toLocaleDateString('en-US', { weekday: 'long' })
     const month = new Date().toLocaleDateString('en-US', { month: 'long' })
-    console.log(date, day, month)
+    
+
+    
 
     useEffect(() => {
-        fetch(`https://pockets.onrender.com/u${valTab}Bal/${user}`)
+        fetch(`https://pockets.onrender.com/u${valTab}Bal/${userId}`)
         .then(res => res.json())
         .then(data => {
-            console.log("file: Dashboard.jsx:17 -> useEffect -> data:", data);
+            
             setSimBalance(data)
+        }) 
+
+        fetch(`https://pockets.onrender.com/userSaves/${userId}`)
+        .then(res=>res.json())
+        .then(data => {
+            let dataset = []
+            for(let saves of data){
+                dataset.push({
+                    id: saves.id,
+                    name: saves.name,
+                    remaining: saves.Remaining
+                })
+            }
+            setUserSavings(dataset)
         })
-        .catch(err => console.log(err))    
     },[])
 
     function handleTab(value){
         setValTab(value)
-        fetch(`https://pockets.onrender.com/u${value}Bal/${user}`)
+        fetch(`https://pockets.onrender.com/u${value}Bal/${userId}`)
         .then(res => res.json())
         .then(data => {
-            console.log("file: Dashboard.jsx:17 -> useEffect -> data:", data);
+            
             setSimBalance(data)
             setChoice(value.toLowerCase())
         })
@@ -52,6 +69,16 @@ export default function Dashboard({user, onLogOff, setIsLoggedIn}) {
     function handleProf(){
         setShowProf(!showProf)
     }
+
+
+    const savingsData = userSavings.map((saving) => {
+        return(
+            <div className='eRemSavings' key={saving.id}>
+                <p className='eRemSavingsName' key={'name'+saving.id}>{saving.name} : </p>
+                <p className='eRemSavingsRemain' key={'remain'+saving.id}>{saving.remaining}</p>
+            </div>
+        )
+    })
 
 
     return (
@@ -114,22 +141,27 @@ export default function Dashboard({user, onLogOff, setIsLoggedIn}) {
                                 <p className='eGTxt'>Tier: {simBalance.length ==0? 'name':simBalance[0].sub}</p>
                             </div>
                             <div className='eCatGreet'>
-                                
+                                <h2 id='eCatHeader'>Savings</h2>
+                                {savingsData}
                             </div>
                         </div>
-                        <DashPie choice={choice} setCatData={setCatData} userId={user}/>
+                        <DashPie choice={choice} setCatData={setCatData} userId={userId}/>
                     </div>
                     <div id='eContentBtm'>
-                        <DashCalender choice={valTab} data={catData} userId={user}/>
-                        <DashVol choice={choice} userId={user}/>
+                        <DashCalender choice={valTab} data={catData} userId={userId}/>
+                        <DashVol choice={choice} userId={userId}/>
                     </div>
                 </div>
             </div>
             {showProf&&(
                     <div id='ePdetails'>
-                        <div onClick={handleProf}>{simBalance.length ==0? 'User':simBalance[0].username}</div>
+                        <div className='eTabsClick'>
+                            <Link to='/subscription'>
+                                Change Subscription
+                            </Link>
+                        </div>
                         <div onClick={()=>{handleProf(); handleLogOff()}}  id='ePLogout'>
-                            logout
+                            <p>Log out</p>
                         </div>
                     </div>
                 )}

@@ -1,8 +1,8 @@
 import React from 'react';
 import './Signup.css'
-import { Link } from 'react-router-dom';
 
-export default function SignUp({webState, user}) {
+export default function SignUp({webState, user, setUserId}) {
+
 
     function handleSignUp(e){
         e.preventDefault();
@@ -28,10 +28,12 @@ export default function SignUp({webState, user}) {
         body: JSON.stringify(credentials),
         })
         .then((r) => r.json())
-        .then(data=>{
+        .then(data => {
+            console.log("file: Signup.jsx:32 -> handleSignUp -> data:", data);
             webState(true)
             user(data)
-        });
+            setUserId(data.id)
+        })
 
         form.reset()
 
