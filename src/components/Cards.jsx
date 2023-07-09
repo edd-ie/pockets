@@ -30,15 +30,15 @@ const Cards = ({userID}) => {
 
   const handleAddTransaction = (event) => {
     event.preventDefault();
-
+  
     const updatedTransactions = [...transactions];
     const selectedCardIndex = updatedTransactions.findIndex(
       (card) => card.id === selectedTransaction.id
     );
     updatedTransactions[selectedCardIndex].cardTransactions.push(newTransaction);
-
+  
     setTransactions(updatedTransactions);
-
+  
     fetch(`https://pockets.onrender.com/cards/${selectedTransaction.id}`, {
       method: 'PUT',
       headers: {
@@ -53,12 +53,13 @@ const Cards = ({userID}) => {
       .catch((error) => {
         console.error('Error adding transaction:', error);
       });
-
+  
     setNewTransaction({
       category: '',
       amount: 0,
     });
   };
+  
 
   const handleRemoveCard = (cardId) => {
     const updatedTransactions = transactions.filter((card) => card.id !== cardId);
@@ -99,7 +100,7 @@ const Cards = ({userID}) => {
 
   const handleAddCard = (event) => {
     event.preventDefault();
-
+  
     fetch('https://pockets.onrender.com/cards', {
       method: 'POST',
       headers: {
@@ -110,20 +111,25 @@ const Cards = ({userID}) => {
       .then((response) => response.json())
       .then((data) => {
         console.log('Card added successfully:', data);
-
+  
         setTransactions((prevState) => [...prevState, data]);
-
+  
         setNewCard({
-          user_id:'',
+          user_id: '',
           name: '',
           balance: '',
           bank: '',
         });
+  
+        setSelectedTransaction(data); 
+        setShowTransactionTable(false);
+        setShowDropdown(false);
       })
       .catch((error) => {
         console.error('Error adding Card:', error);
       });
   };
+  
 
   const toggleDropdown = () => {
     setShowDropdown((prevState) => !prevState);
