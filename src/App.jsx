@@ -44,7 +44,7 @@ function App() {
       },
       {
         path: "/savings",
-        element: <Savings/>,
+        element: <Savings userID={userId}/>,
       },
       {
         path: "/subscription",

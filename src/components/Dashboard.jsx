@@ -67,7 +67,7 @@ export default function Dashboard({user, onLogOff, setIsLoggedIn}) {
                     <Link to='/sims'>
                         <div className='eDashRoute'><h2>Sims</h2></div>
                     </Link>
-                    <Link to='/'>
+                    <Link to='/savings'>
                         <div className='eDashRoute'><h2>Saving</h2></div>
                     </Link>
                 </div>
