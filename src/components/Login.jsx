@@ -1,9 +1,11 @@
 import React, { useState } from 'react';
 import './Login.css';
 import { Link } from "react-router-dom";
+import SignUp from './Signup';
+import PassReset from './PassReset';
 
 
-const Login = ({setUserData, webState}) => {
+const Login = ({setUserData, webState, setUserId}) => {
 
   function handleLogin(e) {
     e.preventDefault();
@@ -22,6 +24,7 @@ const Login = ({setUserData, webState}) => {
         return res.json().then(data=>{
           console.log('Login data:',data)
           setUserData(data) 
+          setUserId(data.id)
           webState(true)
         })
       }
@@ -30,8 +33,14 @@ const Login = ({setUserData, webState}) => {
     form.reset()
   }
 
+  const [showSignUp, setSignUp] = useState(false)
+  const [showReset, setReset] = useState(false)
+
+  
+
   return (
     <div id='gloginHome'>
+      {!showSignUp&&!showReset&&
       <div id='gLogPage'>
         <div id='gSignDiv'>
           <div className='gLog' id='gLog1'></div>
@@ -56,12 +65,17 @@ const Login = ({setUserData, webState}) => {
                   </div>
                   <button type="submit">Log In</button>
                 </form>
-                  <p id='gLogInTxt2'>
+                  <p id='gLogInTxt2' onClick={()=>setSignUp(true)}>
                     Sign up to Pockets
+                  </p>
+                  <p className="ePassRst">
+                    Forgot your password? <span className="ePassReset" onClick={()=>setReset(true)}> Reset</span>
                   </p>
           </div>
         </div>
-      </div>
+      </div>}
+      {showSignUp&& <SignUp setUserId={(e)=>setUserId(e)} user={(e)=>setUserData(e)} webState={(e)=>webState(e)}/> }
+      {showReset && <PassReset  setReset={(e)=>setReset(e)}/>}
     </div>
   );
 };

@@ -2,7 +2,21 @@ import React from "react";
 import './Subscription.css'
 import { Link } from "react-router-dom";
 
-export default function Subscription() {
+export default function Subscription({userId, setUserData}) {
+
+    function handleSub(e){
+        fetch(`https://pockets.onrender.com/users/${userId}`,{
+            method: "PUT",
+            headers: {"Content-Type": "application/json"},
+            body: JSON.stringify({subscription: e})
+        })
+        .then(res => res.json())
+        .then(data => {console.log(data)
+            setUserData(data)
+        })
+    
+    }
+
 
     return (
         <div id="eSub">
@@ -20,7 +34,7 @@ export default function Subscription() {
                         <li>Basic data analysis</li>
                     </ul>
                 </div>
-                <div className="eBottomSub">
+                <div className="eBottomSub" onClick={()=>handleSub("Basic")}>
                     <Link className="eLink" to='/'>
                         <div className="eButtonSub">
                             Select
@@ -43,7 +57,7 @@ export default function Subscription() {
                         <li>Advanced data analysis</li>
                     </ul>
                 </div>
-                <div className="eBottomSub">
+                <div className="eBottomSub" onClick={()=>handleSub("Premium")}>
                     <Link className="eLink" to='/'>
                         <div className="eButtonSub">
                             Select

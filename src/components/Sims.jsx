@@ -3,7 +3,7 @@ import SimTransactionTable from './SimTransactionTable.jsx';
 import "./Sims.css";
 import { Link } from 'react-router-dom';
 
-const Sims = () => {
+const Sims = ({userID}) => {
   const [selectedTransaction, setSelectedTransaction] = useState(null);
   const [transactions, setTransactions] = useState([]);
   const [newSim, setNewSim] = useState({
