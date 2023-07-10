@@ -20,7 +20,7 @@ const Cards = ({userID}) => {
   });
 
   useEffect(() => {
-    fetch('https://pockets.onrender.com/cards')
+    fetch(`https://pockets.onrender.com/userCards/${userID}`)
       .then((response) => response.json())
       .then((data) => {
         setTransactions(data);
@@ -170,7 +170,7 @@ const Cards = ({userID}) => {
               <div className="gDropdown-content">
                 <div className="card-details">
                   <h2>Card Details</h2>
-                  <p>User_id: {newCard.user_id ? newCard.user_id : 'N/A'}</p>
+                  <p>User_id: {userID}</p>
                   <p>Name: {newCard.name ? newCard.name : 'N/A'}</p>
                   <p>Balance: {newCard.balance ? newCard.balance : 'N/A'}</p>
                   <p>Bank: {newCard.bank ? newCard.bank : 'N/A'}</p>
@@ -179,13 +179,13 @@ const Cards = ({userID}) => {
                   <h3>Add New Card</h3>
                   <form onSubmit={handleAddCard}>
                   <div>
-                      <input
+                      {false&&<input
                         type="text"
                         placeholder="User_id"
                         name="user_id"
-                        value={newCard.user_id}
+                        value={userID}
                         onChange={handleInputChange}
-                      />
+                      />}
                     </div>
                     <div>
                       <input
