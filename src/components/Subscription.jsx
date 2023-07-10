@@ -5,10 +5,11 @@ import { Link } from "react-router-dom";
 export default function Subscription({userId, setUserData}) {
 
     function handleSub(e){
+        let value = e=='premium'?"Premium" : "Basic"
         fetch(`https://pockets.onrender.com/users/${userId}`,{
-            method: "PUT",
+            method: "PATCH",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify({subscription: e})
+            body: JSON.stringify({subscription: value})
         })
         .then(res => res.json())
         .then(data => {console.log(data)

@@ -10,7 +10,6 @@ export default function DashPie({setCatData, userId, choice}) {
         fetch(`https://pockets.onrender.com/${choice}Cat/${userId}`)
         .then(res => res.json())
         .then(data => {
-            console.log("file: Dashpie.jsx:13 -> useEffect -> data:", data);
             let set = []
             let c = ["hsl(77, 70%, 50%)", "hsl(118, 70%, 50%)", "hsl(182, 70%, 50%)",
             "hsl(324, 70%, 50%)", "hsl(308, 70%, 50%)", "hsl(247, 70%, 50%)", 

@@ -11,7 +11,6 @@ export default function Dashboard({userId, onLogOff, setIsLoggedIn}) {
     const [valTab, setValTab] = React.useState('Sim')
     const [choice, setChoice] = React.useState('sim')
     const [userSavings, setUserSavings] = React.useState([])
-    console.log("file: Dashboard.jsx:14 -> Dashboard -> userSavings:", userSavings);
 
     const navigate = useNavigate()
 
@@ -60,8 +59,11 @@ export default function Dashboard({userId, onLogOff, setIsLoggedIn}) {
         fetch("https://pockets.onrender.com/logout", {
             method: "DELETE"
         })
-        .then(() => {onLogOff([]) 
+        .then(() => {
+            onLogOff([]) 
             setIsLoggedIn(false)
+            sessionStorage.removeItem("user");
+
         });
     }
 

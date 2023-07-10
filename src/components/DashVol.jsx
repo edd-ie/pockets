@@ -51,7 +51,6 @@ export default function DashVol({userId, choice}) {
             }
         })
         .then(data => {
-            console.log("file: DashVol.jsx:15 -> useEffect -> data:", data[0]['created_at']);
             let dataset = [];
             for(let x = data.length-1; x >= 0; x--){
                 dataset.push({name:data[x]['created_at'], amount:data[x]['amount']});
@@ -74,7 +73,7 @@ export default function DashVol({userId, choice}) {
                 <AreaChart
                 width={500}
                 height={400}
-                data={choice == 'sim' ? dataTst: volData}
+                data={choice == 'sim' && userId == 1 ? dataTst: volData}
                 margin={{
                     top: 20,
                     right: 22,

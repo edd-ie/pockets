@@ -22,9 +22,9 @@ const Login = ({setUserData, webState, setUserId}) => {
     }).then(res=>{
       if (res.ok){
         return res.json().then(data=>{
-          console.log('Login data:',data)
           setUserData(data) 
           setUserId(data.id)
+          sessionStorage.setItem('user', JSON.stringify(data));
           webState(true)
         })
       }
