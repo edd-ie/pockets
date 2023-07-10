@@ -13,18 +13,24 @@ import Savings from './components/Savings';
 function App() {
   const [user, setUser] = useState([]);
   const [userId, setUserId] = useState(1);
-  console.log("file: App.jsx:15 -> App -> user:", user['id']);
   const [isLoggedIn, setIsLoggedIn] = useState(false);
-  console.log("file: App.jsx:16 -> App -> isLoggedIn:", isLoggedIn);
+
+  const handleLogin = (user) => {
+    setUser(user);
+    sessionStorage.setItem("user", JSON.stringify(user));
+    setIsLoggedIn(true);
+  };
+
+  
 
   useEffect(() => {
     fetch("https://pockets.onrender.com/me")
     .then(res => res.json())
     .then(data => {
+      console.log("file: App.jsx:30 -> useEffect -> data:", data);
       if (data.length > 0){
         setUser(data)
         setIsLoggedIn(true)
-        setUserId(data['id'])
       }
     })    
   },[])
@@ -52,7 +58,7 @@ function App() {
       },
       {
         path: "/login",
-        element: <LogIn setUserData={(e)=>setUser(e)} webState={(e)=>setIsLoggedIn(e)}/>
+        element: <LogIn setUserData={(e)=>handleLogin(e)} webState={(e)=>setIsLoggedIn(e)}/>
       }
     ]
   );

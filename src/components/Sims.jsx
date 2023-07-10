@@ -20,7 +20,7 @@ const Sims = ({userID}) => {
   });
 
   useEffect(() => {
-    fetch('https://pockets.onrender.com/sims')
+    fetch(`https://pockets.onrender.com/userSims/${userID}`)
       .then((response) => response.json())
       .then((data) => {
         setTransactions(data);
@@ -153,6 +153,7 @@ const handleInputChange = (event) => {
           balance: '',
           simName: '',
         });
+        setShowDropdown(false);
       })
       .catch((error) => {
         // Handle any errors
@@ -248,7 +249,7 @@ const handleInputChange = (event) => {
                         onChange={handleInputChange}
                       />
                     </div>
-                    <button type="submit">Add Sim</button>
+                    <button type="submit" >Add Sim</button>
                   </form>
                 </div>
             </div>
