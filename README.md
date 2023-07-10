@@ -2,6 +2,10 @@
 
 A web application that helps users manage their financial transactions and track their expenses. The application allows users to add and view transactions for their cards/sims and provides visual representations of their spending patterns. It also includes features such as user authentication, profile management, and savings tracking.
 
+## Project backend
+
+Link - **[Backend](https://github.com/edd-ie/pockets-b)**
+
 ## Table of Contents
 
 1. [Getting started](#Getting-started)
