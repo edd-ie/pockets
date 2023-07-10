@@ -94,6 +94,21 @@ export default function Savings({userID}) {
       })
       .then(res => res.json())
       .then(
+      fetch(`https://pockets.onrender.com/userSaves/${userID}`)
+      .then(res => res.json())
+      .then(data => {
+        
+        let dataset = []
+        for(let saves of data){
+          dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
+            time: saves.duration, sim:saves.simContrib, card: saves.cardContrib,
+            remaining: saves.Remaining
+          })
+        }
+        setSaving(dataset)
+
+      })
+      .then(
         fetch(`https://pockets.onrender.com/userSaves/${userID}`)
         .then(res => res.json())
         .then(data => {
@@ -110,6 +125,8 @@ export default function Savings({userID}) {
         })
         .catch(err => console.log(err))
       )
+      
+    )
 
     }
   }
@@ -228,12 +245,13 @@ export default function Savings({userID}) {
       method: "POST",
       headers: {'Content-Type': 'application/json'},
       body: JSON.stringify(dataSet)
-    }).then(res => res.json())
+    })
+    .then(res => res.json())
     .then(
       fetch(`https://pockets.onrender.com/userSaves/${userID}`)
       .then(res => res.json())
       .then(data => {
-    
+        
         let dataset = []
         for(let saves of data){
           dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
@@ -244,7 +262,24 @@ export default function Savings({userID}) {
         setSaving(dataset)
 
       })
-      .catch(err => console.log(err))
+      .then(
+        fetch(`https://pockets.onrender.com/userSaves/${userID}`)
+        .then(res => res.json())
+        .then(data => {
+          
+          let dataset = []
+          for(let saves of data){
+            dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
+              time: saves.duration, sim:saves.simContrib, card: saves.cardContrib,
+              remaining: saves.Remaining
+            })
+          }
+          setSaving(dataset)
+
+        })
+        .catch(err => console.log(err))
+      )
+      
     )
     
     form.reset()
