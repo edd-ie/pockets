@@ -15,7 +15,7 @@ export default function Savings({userID}) {
     fetch(`https://pockets.onrender.com/userSaves/${userID}`)
     .then(res => res.json())
     .then(data => {
-      console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+      
       let dataset = []
       for(let saves of data){
         dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
@@ -97,7 +97,7 @@ export default function Savings({userID}) {
         fetch(`https://pockets.onrender.com/userSaves/${userID}`)
         .then(res => res.json())
         .then(data => {
-          console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+          
           let dataset = []
           for(let saves of data){
             dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
@@ -116,7 +116,7 @@ export default function Savings({userID}) {
 
   function handleChoice(e){
     let choice = e.target.value
-    console.log(choice)
+    
     if(choice == 'sim'){
       setCategory(sims)
     }
@@ -147,7 +147,7 @@ export default function Savings({userID}) {
       duration: parseInt(duration),
       user_id: id
     }
-    console.log("file: Savings.jsx:121 -> handleNewSave -> dataset:", dataset);
+    
 
     fetch("https://pockets.onrender.com/savings",{
       method: "POST",
@@ -158,7 +158,7 @@ export default function Savings({userID}) {
       fetch(`https://pockets.onrender.com/userSaves/${userID}`)
       .then(res => res.json())
       .then(data => {
-        console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+        
         let dataset = []
         for(let saves of data){
           dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
@@ -173,7 +173,7 @@ export default function Savings({userID}) {
         fetch(`https://pockets.onrender.com/userSaves/${userID}`)
         .then(res => res.json())
         .then(data => {
-          console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+          
           let dataset = []
           for(let saves of data){
             dataset.push({id: saves.id, name: saves.name, goal: saves.goal,
@@ -202,7 +202,7 @@ export default function Savings({userID}) {
     let amnt = form[0].value
     let choice = form[1].value
     let choiceID = form[2].value
-    console.log(saveKey)
+
     let id = saveKey[0]
     let name = saveKey[1]
 
@@ -233,7 +233,7 @@ export default function Savings({userID}) {
       fetch(`https://pockets.onrender.com/userSaves/${userID}`)
       .then(res => res.json())
       .then(data => {
-        console.log("file: Savings.jsx:12 -> useEffect -> data:", data);
+    
         let dataset = []
         for(let saves of data){
           dataset.push({id: saves.id, name: saves.name, goal: saves.goal,

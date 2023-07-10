@@ -29,7 +29,6 @@ export default function SignUp({webState, user, setUserId}) {
         })
         .then((r) => r.json())
         .then(data => {
-            console.log("file: Signup.jsx:32 -> handleSignUp -> data:", data);
             webState(true)
             user(data)
             setUserId(data.id)
